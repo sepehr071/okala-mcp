@@ -1,0 +1,19 @@
+{
+ "success": true,
+ "data": {
+  "partnerCount": 0,
+  "cityId": 0,
+  "emptyStatus": "Permanent",
+  "stores": [],
+  "isIran": false,
+  "filters": {
+   "availabilityFilters": [],
+   "storeTypeFilters": [],
+   "deliveryMethodFilters": []
+  },
+  "experimentSegment": "None"
+ },
+ "message": null,
+ "hasValidationError": false,
+ "errorCode": null
+}

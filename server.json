@@ -1,0 +1,38 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.sepehr071/okala-mcp",
+  "title": "Okala",
+  "description": "Unofficial read-only Okala: grocery stores that deliver to you, compare prices across stores.",
+  "repository": {
+    "url": "https://github.com/sepehr071/okala-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/sepehr071/okala-mcp",
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "okala-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "OKALA_MCP_PROXY",
+          "description": "Optional HTTP proxy URL for requests to okala.com; system proxy settings are ignored.",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "OKALA_MCP_TOKEN",
+          "description": "Optional Okala access token for text search; normally saved by `okala-mcp login` instead.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

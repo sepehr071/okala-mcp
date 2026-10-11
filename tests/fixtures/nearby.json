@@ -1,0 +1,421 @@
+{
+ "success": true,
+ "data": {
+  "partnerCount": 0,
+  "cityId": 129,
+  "emptyStatus": "None",
+  "stores": [
+   {
+    "id": "59f67d3d-07ad-4fbb-81a7-0198feac5d3e",
+    "storeTypeId": 12,
+    "storeId": 11009,
+    "storeCategoryId": 3,
+    "storeCategoryName": "سوپرمارکت",
+    "partnerId": "a39e0026-4ad6-4c3f-9666-018d7426daaa",
+    "storeName": "حمید",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "rate": 4.1,
+    "csatCount": 100,
+    "distance": 1.096620828810889,
+    "onDemandEta": null,
+    "storeLabels": [
+     {
+      "id": "eb7df96f-b5b8-48a3-88f9-00d7e2695ca5",
+      "title": "تضمین کیفیت",
+      "color": "#FF3B30",
+      "backgroundColor": "#FFF1F0",
+      "types": [
+       "StorePage"
+      ]
+     }
+    ],
+    "operationPrice": 105000.0,
+    "packagingPrice": 30000.0,
+    "legacyCityId": 129,
+    "deliveryPrice": 0,
+    "successOrdersCount": 0,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 2,
+      "defaultRadius": 2,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 07 تا 08",
+     "from": "2026-10-07T07:00:00",
+     "to": "2026-10-07T08:00:00"
+    },
+    "deliveryProvider": {
+     "title": "Alopeyk",
+     "description": "الوپیک"
+    },
+    "isHighPriorityStore": false,
+    "storeCategoryType": "SuperMarket",
+    "logoUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "okalaLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "tapsiMarketLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "storeType": "سوپرمارکت",
+    "partnerName": "سوپرمارکت",
+    "cost": 0,
+    "isExist": true,
+    "isServes": true,
+    "isActive": true
+   },
+   {
+    "id": "32a402de-fcec-423a-b9df-019b2222699a",
+    "storeTypeId": 12,
+    "storeId": 52299,
+    "storeCategoryId": 3,
+    "storeCategoryName": "سوپرمارکت",
+    "partnerId": "05400c7a-6d1e-4f0b-9289-0189c8de7b55",
+    "storeName": "باران یوسف آباد",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "rate": 3.8,
+    "csatCount": 200,
+    "distance": 1.434074726633971,
+    "onDemandEta": null,
+    "storeLabels": [
+     {
+      "id": "eb7df96f-b5b8-48a3-88f9-00d7e2695ca5",
+      "title": "تضمین کیفیت",
+      "color": "#FF3B30",
+      "backgroundColor": "#FFF1F0",
+      "types": [
+       "StorePage"
+      ]
+     }
+    ],
+    "operationPrice": 105000.0,
+    "packagingPrice": 30000.0,
+    "legacyCityId": 129,
+    "deliveryPrice": 0,
+    "successOrdersCount": 0,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 2,
+      "defaultRadius": 2,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 07 تا 08",
+     "from": "2026-10-07T07:00:00",
+     "to": "2026-10-07T08:00:00"
+    },
+    "deliveryProvider": {
+     "title": "Alopeyk",
+     "description": "الوپیک"
+    },
+    "isHighPriorityStore": false,
+    "storeCategoryType": "SuperMarket",
+    "logoUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "okalaLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "tapsiMarketLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "storeType": "سوپرمارکت",
+    "partnerName": "سوپرمارکت",
+    "cost": 0,
+    "isExist": true,
+    "isServes": true,
+    "isActive": true
+   },
+   {
+    "id": "e174f4b3-2439-441d-8337-7852512b4f67",
+    "storeTypeId": 17,
+    "storeId": 55428,
+    "storeCategoryId": 7,
+    "storeCategoryName": "نانوایی",
+    "partnerId": "166149b6-3de7-49f5-a865-018a455d4bd3",
+    "storeName": "بربری جعفری",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/5AC2D901-3E67-4B20-AD11-5A2E9FBB1004.png",
+    "rate": 4.7,
+    "csatCount": 10,
+    "distance": 1.8229262704227402,
+    "onDemandEta": null,
+    "storeLabels": [
+     {
+      "id": "613b6863-cb47-4932-a8fa-0e072140ac18",
+      "title": "تضمین کیفیت",
+      "color": "#f7690a",
+      "backgroundColor": "#FEF4E5",
+      "types": [
+       "StorePage"
+      ]
+     }
+    ],
+    "operationPrice": 0.0,
+    "packagingPrice": 0.0,
+    "legacyCityId": 129,
+    "deliveryPrice": 0,
+    "successOrdersCount": 0,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 2.8,
+      "defaultRadius": 2.8,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 07 تا 08",
+     "from": "2026-10-07T07:00:00",
+     "to": "2026-10-07T08:00:00"
+    },
+    "deliveryProvider": {
+     "title": "Alopeyk",
+     "description": "الوپیک"
+    },
+    "isHighPriorityStore": false,
+    "storeCategoryType": "Bakery",
+    "logoUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/5AC2D901-3E67-4B20-AD11-5A2E9FBB1004.png",
+    "okalaLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/5AC2D901-3E67-4B20-AD11-5A2E9FBB1004.png",
+    "tapsiMarketLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/5AC2D901-3E67-4B20-AD11-5A2E9FBB1004.png",
+    "storeType": "نانوایی",
+    "partnerName": "نانوایی",
+    "cost": 0,
+    "isExist": true,
+    "isServes": true,
+    "isActive": true
+   },
+   {
+    "id": "5b4da03a-4772-4304-9c41-0189c8e22e95",
+    "storeTypeId": 1,
+    "storeId": 4957,
+    "storeCategoryId": 1,
+    "storeCategoryName": "افق کوروش",
+    "partnerId": "5dcc1318-252f-4458-bb6b-0189c8de7b53",
+    "storeName": "جهان آرا",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/7F3A1C2D-9B44-4A11-8E2D-1C5F7A9B1001.png",
+    "rate": 4.5,
+    "csatCount": 1000,
+    "distance": 1.1366476606132332,
+    "onDemandEta": null,
+    "storeLabels": [
+     {
+      "id": "20988d1f-f5a2-4d0a-7988-08db962de1e2",
+      "title": "جشنواره بهترین‌ها",
+      "color": "#FF3B30",
+      "backgroundColor": "#FFF1F0",
+      "types": [
+       "StoreRank",
+       "StorePage"
+      ]
+     },
+     {
+      "id": "eb7df96f-b5b8-48a3-88f9-00d7e2695ca5",
+      "title": "تضمین کیفیت",
+      "color": "#FF3B30",
+      "backgroundColor": "#FFF1F0",
+      "types": [
+       "StorePage"
+      ]
+     }
+    ],
+    "operationPrice": 105000.0,
+    "packagingPrice": 30000.0,
+    "legacyCityId": 129,
+    "deliveryPrice": 0,
+    "successOrdersCount": 0,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 1.8,
+      "defaultRadius": 1.8,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 09 تا 10",
+     "from": "2026-10-07T09:00:00",
+     "to": "2026-10-07T10:00:00"
+    },
+    "deliveryProvider": {
+     "title": "Alopeyk",
+     "description": "الوپیک"
+    },
+    "isHighPriorityStore": false,
+    "storeCategoryType": "Ofogh",
+    "logoUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/7F3A1C2D-9B44-4A11-8E2D-1C5F7A9B1001.png",
+    "okalaLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/7F3A1C2D-9B44-4A11-8E2D-1C5F7A9B1001.png",
+    "tapsiMarketLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/7F3A1C2D-9B44-4A11-8E2D-1C5F7A9B1001.png",
+    "storeType": "افق کوروش",
+    "partnerName": "افق کوروش",
+    "cost": 0,
+    "isExist": true,
+    "isServes": true,
+    "isActive": true
+   },
+   {
+    "id": "2602cc27-1887-4853-8073-0291e8d7dc87",
+    "storeTypeId": 12,
+    "storeId": 53905,
+    "storeCategoryId": 3,
+    "storeCategoryName": "سوپرمارکت",
+    "partnerId": "00deb7f2-a9d0-4733-abe9-0191d1908974",
+    "storeName": "یاران دریان پایتخت 2",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "rate": 4.5,
+    "csatCount": 500,
+    "distance": 4.161659305688795,
+    "onDemandEta": null,
+    "storeLabels": [
+     {
+      "id": "00330c1e-1c46-4d81-a1ca-658fea5fb315",
+      "title": "منتخب در تنوع",
+      "color": "#EA1886",
+      "backgroundColor": "#FCEFF7",
+      "types": [
+       "StoreRank",
+       "StorePage"
+      ]
+     },
+     {
+      "id": "eb7df96f-b5b8-48a3-88f9-00d7e2695ca5",
+      "title": "تضمین کیفیت",
+      "color": "#FF3B30",
+      "backgroundColor": "#FFF1F0",
+      "types": [
+       "StorePage"
+      ]
+     }
+    ],
+    "operationPrice": 105000.0,
+    "packagingPrice": 30000.0,
+    "legacyCityId": 129,
+    "deliveryPrice": 0,
+    "successOrdersCount": 0,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "TemporarilyUnavailable",
+      "radius": 5,
+      "defaultRadius": 5,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": false,
+     "isClosed": true,
+     "caption": "بسته است",
+     "from": "0001-01-01T00:00:00",
+     "to": "0001-01-01T00:00:00"
+    },
+    "deliveryProvider": {
+     "title": "Alopeyk",
+     "description": "الوپیک"
+    },
+    "isHighPriorityStore": true,
+    "storeCategoryType": "SuperMarket",
+    "logoUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "okalaLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "tapsiMarketLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "storeType": "سوپرمارکت",
+    "partnerName": "سوپرمارکت",
+    "cost": 0,
+    "isExist": true,
+    "isServes": true,
+    "isActive": true
+   }
+  ],
+  "isIran": false,
+  "filters": {
+   "availabilityFilters": null,
+   "storeTypeFilters": [
+    {
+     "title": "SuperMarket",
+     "description": "سوپرمارکت",
+     "priority": 6,
+     "storeCount": 23
+    },
+    {
+     "title": "Bakery",
+     "description": "نانوایی",
+     "priority": 4,
+     "storeCount": 17
+    },
+    {
+     "title": "FruitMarket",
+     "description": "سوپرمیوه",
+     "priority": 3,
+     "storeCount": 17
+    },
+    {
+     "title": "ChainStore",
+     "description": "زنجیره‌ای",
+     "priority": 5,
+     "storeCount": 5
+    },
+    {
+     "title": "Opack",
+     "description": "اُپک",
+     "priority": 2,
+     "storeCount": 7
+    }
+   ],
+   "deliveryMethodFilters": null
+  },
+  "experimentSegment": "None"
+ },
+ "message": null,
+ "hasValidationError": false,
+ "errorCode": null
+}

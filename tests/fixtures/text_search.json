@@ -1,0 +1,281 @@
+{
+ "data": [
+  {
+   "store": {
+    "rank": 37,
+    "storeId": 52514,
+    "storeName": "سن سون گاندی",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "distance": 1.8213908059358115,
+    "rate": 4.2,
+    "partnerName": null,
+    "deliveryPrice": 0,
+    "storeTypeId": 12,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 5,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 08 تا 09"
+    },
+    "hasOnDemandDelivery": false,
+    "hasActiveOperatingHour": true
+   },
+   "products": [
+    {
+     "storeId": 52514,
+     "maxOrderLimit": 1,
+     "isShowDiscount": true,
+     "quantity": 23,
+     "hasQuantity": true,
+     "id": 24556,
+     "name": "شکلات صبحانه نوتلا 750 گرمی",
+     "price": 26500000,
+     "okPrice": 22525000,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/434506.png",
+     "isBundle": false,
+     "supplyStatus": 1,
+     "masterProductId": 314635,
+     "discountPercent": 15
+    },
+    {
+     "storeId": 52514,
+     "maxOrderLimit": 5,
+     "isShowDiscount": false,
+     "quantity": 8,
+     "hasQuantity": true,
+     "id": 15971,
+     "name": "شکلات صبحانه فندقی نوتلا 350 گرمی",
+     "price": 15000000,
+     "okPrice": 15000000,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/87173.png",
+     "isBundle": false,
+     "supplyStatus": 1,
+     "masterProductId": 279048,
+     "discountPercent": 0
+    }
+   ],
+   "suppliedCount": 5,
+   "exactMatchCount": 0,
+   "totalScore": 619173642245028873,
+   "personalizedCount": 0
+  },
+  {
+   "store": {
+    "rank": 42,
+    "storeId": 9986,
+    "storeName": "شاه نظریان خیابان کریمخان",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "distance": 2.050165326713059,
+    "rate": 4.3,
+    "partnerName": null,
+    "deliveryPrice": 0,
+    "storeTypeId": 12,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 5,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 08 تا 09"
+    },
+    "hasOnDemandDelivery": false,
+    "hasActiveOperatingHour": true
+   },
+   "products": [
+    {
+     "storeId": 9986,
+     "maxOrderLimit": 100,
+     "isShowDiscount": false,
+     "quantity": 6,
+     "hasQuantity": true,
+     "id": 271160,
+     "name": "گرانولا نوتلا و فندق اوریگامی - 380 گرم",
+     "price": 6500000.0,
+     "okPrice": 6500000.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/489326.png",
+     "isBundle": false,
+     "supplyStatus": 1,
+     "masterProductId": 247194,
+     "discountPercent": 0
+    },
+    {
+     "storeId": 9986,
+     "maxOrderLimit": 5,
+     "isShowDiscount": true,
+     "quantity": 36,
+     "hasQuantity": true,
+     "id": 202890,
+     "name": "بیسکویت شکلاتی بی ردی نوتلا 22 گرمی",
+     "price": 3850000.0,
+     "okPrice": 3575110.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/427244.png",
+     "isBundle": false,
+     "supplyStatus": 1,
+     "masterProductId": 281041,
+     "discountPercent": 7
+    }
+   ],
+   "suppliedCount": 4,
+   "exactMatchCount": 0,
+   "totalScore": 495338913796028918,
+   "personalizedCount": 0
+  },
+  {
+   "store": {
+    "rank": 22,
+    "storeId": 54869,
+    "storeName": "پارس بیستون",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "distance": 1.0366815692625422,
+    "rate": 4.3,
+    "partnerName": null,
+    "deliveryPrice": 0,
+    "storeTypeId": 12,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 2,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isClosed": true,
+     "caption": "بسته است"
+    },
+    "hasOnDemandDelivery": false,
+    "hasActiveOperatingHour": true
+   },
+   "products": [
+    {
+     "storeId": 54869,
+     "maxOrderLimit": 100,
+     "isShowDiscount": false,
+     "quantity": 1,
+     "hasQuantity": true,
+     "id": 271160,
+     "name": "گرانولا نوتلا و فندق اوریگامی - 380 گرم",
+     "price": 4500000.0,
+     "okPrice": 4500000.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/489326.png",
+     "isBundle": false,
+     "supplyStatus": 1,
+     "masterProductId": 247194,
+     "discountPercent": 0
+    },
+    {
+     "storeId": 54869,
+     "maxOrderLimit": 200,
+     "isShowDiscount": false,
+     "quantity": 1,
+     "hasQuantity": true,
+     "id": 24556,
+     "name": "شکلات صبحانه نوتلا 750 گرمی",
+     "price": 21200000,
+     "okPrice": 21200000,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/434506.png",
+     "isBundle": false,
+     "supplyStatus": 1,
+     "masterProductId": 314635,
+     "discountPercent": 0
+    }
+   ],
+   "suppliedCount": 3,
+   "exactMatchCount": 0,
+   "totalScore": 371504185347026982,
+   "personalizedCount": 0
+  }
+ ],
+ "suggestions": [
+  "شکلات صبحانه نوتلا",
+  "شکلات صبحانه نوتلا 30 گرمی",
+  "شکلات نوتلا",
+  "بستنی نوتلا",
+  "شکلات نوتلا صبحانه",
+  "شکلات صبحانه نوتلا 825 گرم",
+  "شکلات صبحانه نوتلا 180 گرمی",
+  "شکلات صبحانه فندقی",
+  "شکلات صبحانه فندقی"
+ ],
+ "success": true,
+ "tags": [
+  {
+   "key": "q",
+   "value": "نوتلا"
+  },
+  {
+   "key": "stores",
+   "value": 69
+  },
+  {
+   "key": "searchEngine",
+   "value": "in-house"
+  },
+  {
+   "key": "storeIds",
+   "value": [
+    52514,
+    9986,
+    54869,
+    55070,
+    7799,
+    11009,
+    8294,
+    51591,
+    9012,
+    7895,
+    7436,
+    53494,
+    52581,
+    52299,
+    55119,
+    54186,
+    2045,
+    54145,
+    53905,
+    55247,
+    54708
+   ]
+  }
+ ],
+ "queryId": "NzUxMzAwNzM2NTE2NDEzMDMwNC0wLTAtMA",
+ "errorMessage": null
+}

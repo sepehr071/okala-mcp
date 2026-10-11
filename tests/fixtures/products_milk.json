@@ -1,0 +1,344 @@
+{
+ "data": [
+  {
+   "store": {
+    "rank": 37,
+    "storeId": 4957,
+    "storeName": "جهان آرا",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/7F3A1C2D-9B44-4A11-8E2D-1C5F7A9B1001.png",
+    "distance": 1.1366476606132332,
+    "rate": 4.5,
+    "partnerName": null,
+    "deliveryPrice": 0,
+    "storeTypeId": 1,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 1.8,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 09 تا 10"
+    },
+    "hasOnDemandDelivery": false,
+    "hasActiveOperatingHour": true
+   },
+   "products": [
+    {
+     "storeId": 4957,
+     "maxOrderLimit": 5,
+     "isShowDiscount": true,
+     "quantity": 84,
+     "hasQuantity": true,
+     "personalizationIndex": 1,
+     "brandId": 12,
+     "id": 716,
+     "name": "شير كم چرب 1.5% چربی میهن 1 لیتری",
+     "price": 1590000.0,
+     "okPrice": 1495554.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/9c614cbf-9dc7-460d-95cb-3a5138e374b9.jpg",
+     "pinned": true,
+     "isBundle": false,
+     "catalogBadges": "[{\"id\":42,\"name\":\"kalabarg\",\"backgroundColor\":\"#ffffff\",\"textColor\":\"#ffffff\",\"priority\":1}]",
+     "supplyStatus": 1,
+     "masterProductId": 195439,
+     "discountPercent": 5
+    },
+    {
+     "storeId": 4957,
+     "maxOrderLimit": 5,
+     "isShowDiscount": false,
+     "quantity": 20,
+     "hasQuantity": true,
+     "brandId": 39,
+     "id": 289271,
+     "name": "شیر پرچرب 3.2% چربی پاک 946 میلی لیتری",
+     "price": 1442000.0,
+     "okPrice": 1442000.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/22dc4f29-5f39-4872-b319-80dbd562f66b.jpg",
+     "isBundle": false,
+     "catalogBadges": "[{\"id\":42,\"name\":\"kalabarg\",\"backgroundColor\":\"#ffffff\",\"textColor\":\"#ffffff\",\"priority\":1}]",
+     "supplyStatus": 1,
+     "masterProductId": 195306,
+     "discountPercent": 0
+    },
+    {
+     "storeId": 4957,
+     "maxOrderLimit": 5,
+     "isShowDiscount": false,
+     "quantity": 7,
+     "hasQuantity": true,
+     "brandId": 1,
+     "id": 12043,
+     "name": "شیر پر چرب کاله 955 میلی لیتری",
+     "price": 1579000.0,
+     "okPrice": 1579000.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/d947eef2-ae34-4b96-a410-07f863a4420e.jpg",
+     "isBundle": false,
+     "catalogBadges": "[{\"id\":42,\"name\":\"kalabarg\",\"backgroundColor\":\"#ffffff\",\"textColor\":\"#ffffff\",\"priority\":1}]",
+     "supplyStatus": 1,
+     "masterProductId": 248273,
+     "discountPercent": 0
+    }
+   ],
+   "suppliedCount": 12,
+   "exactMatchCount": 0,
+   "totalScore": 1486016741388119543,
+   "personalizedCount": 0
+  },
+  {
+   "store": {
+    "rank": 0,
+    "storeId": 11009,
+    "storeName": "حمید",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "distance": 1.096620828810889,
+    "rate": 4.1,
+    "partnerName": null,
+    "deliveryPrice": 0,
+    "storeTypeId": 12,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 2,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 07 تا 08"
+    },
+    "hasOnDemandDelivery": false,
+    "hasActiveOperatingHour": true
+   },
+   "products": [
+    {
+     "storeId": 11009,
+     "maxOrderLimit": 1,
+     "isShowDiscount": true,
+     "quantity": 12,
+     "hasQuantity": true,
+     "personalizationIndex": 1,
+     "brandId": 12,
+     "id": 716,
+     "name": "شير كم چرب 1.5% چربی میهن 1 لیتری",
+     "price": 1500000.0,
+     "okPrice": 1350000.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/9c614cbf-9dc7-460d-95cb-3a5138e374b9.jpg",
+     "pinned": true,
+     "isBundle": false,
+     "catalogBadges": "[{\"id\":42,\"name\":\"kalabarg\",\"backgroundColor\":\"#ffffff\",\"textColor\":\"#ffffff\",\"priority\":1}]",
+     "supplyStatus": 1,
+     "masterProductId": 195439,
+     "discountPercent": 10
+    }
+   ],
+   "suppliedCount": 12,
+   "exactMatchCount": 0,
+   "totalScore": 1486016741388119168,
+   "personalizedCount": 0
+  },
+  {
+   "store": {
+    "rank": 1,
+    "storeId": 52299,
+    "storeName": "باران یوسف آباد",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "distance": 1.434074726633971,
+    "rate": 3.8,
+    "partnerName": null,
+    "deliveryPrice": 0,
+    "storeTypeId": 12,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "Available",
+      "radius": 2,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": true,
+     "isClosed": false,
+     "caption": "امروز - 07 تا 08"
+    },
+    "hasOnDemandDelivery": false,
+    "hasActiveOperatingHour": true
+   },
+   "products": [
+    {
+     "storeId": 52299,
+     "maxOrderLimit": 1,
+     "isShowDiscount": true,
+     "quantity": 16,
+     "hasQuantity": true,
+     "personalizationIndex": 1,
+     "brandId": 12,
+     "id": 716,
+     "name": "شير كم چرب 1.5% چربی میهن 1 لیتری",
+     "price": 1590000.0,
+     "okPrice": 1391250.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/9c614cbf-9dc7-460d-95cb-3a5138e374b9.jpg",
+     "pinned": true,
+     "isBundle": false,
+     "catalogBadges": "[{\"id\":42,\"name\":\"kalabarg\",\"backgroundColor\":\"#ffffff\",\"textColor\":\"#ffffff\",\"priority\":1}]",
+     "supplyStatus": 1,
+     "masterProductId": 195439,
+     "discountPercent": 12
+    }
+   ],
+   "suppliedCount": 12,
+   "exactMatchCount": 0,
+   "totalScore": 1486016741388118612,
+   "personalizedCount": 0
+  },
+  {
+   "store": {
+    "rank": 58,
+    "storeId": 53905,
+    "storeName": "یاران دریان پایتخت 2",
+    "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+    "distance": 4.161659305688795,
+    "rate": 4.5,
+    "partnerName": null,
+    "deliveryPrice": 0,
+    "storeTypeId": 12,
+    "deliveryMethods": [
+     {
+      "title": "Delivery",
+      "description": "ارسال با پیک",
+      "status": "TemporarilyUnavailable",
+      "radius": 5,
+      "vehicleType": {
+       "title": "Motorcycle",
+       "description": "پیک"
+      },
+      "vehicleReason": {
+       "title": "Default",
+       "description": "عادی"
+      }
+     }
+    ],
+    "earliestSlot": {
+     "isOnDemand": false,
+     "isScheduled": false,
+     "isClosed": true,
+     "caption": "بسته است"
+    },
+    "hasOnDemandDelivery": false,
+    "hasActiveOperatingHour": false
+   },
+   "products": [
+    {
+     "storeId": 53905,
+     "maxOrderLimit": 3,
+     "isShowDiscount": false,
+     "quantity": 9,
+     "hasQuantity": true,
+     "brandId": 14,
+     "id": 17156,
+     "name": "شیر کم چرب غنی شده 946 میلی لیتری دامداران",
+     "price": 1120000.0,
+     "okPrice": 1120000.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/423345.png",
+     "isBundle": false,
+     "catalogBadges": "[{\"id\":42,\"name\":\"kalabarg\",\"backgroundColor\":\"#ffffff\",\"textColor\":\"#ffffff\",\"priority\":1}]",
+     "supplyStatus": 1,
+     "masterProductId": 195301,
+     "discountPercent": 0
+    },
+    {
+     "storeId": 53905,
+     "maxOrderLimit": 5,
+     "isShowDiscount": false,
+     "quantity": 3,
+     "hasQuantity": true,
+     "brandId": 34067,
+     "id": 198586,
+     "name": "شیر پرچرب 4.4% چربی سنتی مزرعه ماهشام 945 میلی لیتری",
+     "price": 1800000.0,
+     "okPrice": 1800000.0,
+     "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/3c9743c8-0b47-48fc-ba10-e9bcfccc5fca.jpg",
+     "isBundle": false,
+     "catalogBadges": "[{\"id\":42,\"name\":\"kalabarg\",\"backgroundColor\":\"#ffffff\",\"textColor\":\"#ffffff\",\"priority\":1}]",
+     "supplyStatus": 1,
+     "masterProductId": 194924,
+     "discountPercent": 0
+    }
+   ],
+   "suppliedCount": 12,
+   "exactMatchCount": 0,
+   "totalScore": 1486016741388119618,
+   "personalizedCount": 0
+  }
+ ],
+ "brands": [
+  {
+   "legacyId": 12,
+   "name": "میهن",
+   "latinName": "mihan",
+   "icon": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/brand/165212.png",
+   "hasSpecificPage": false
+  },
+  {
+   "legacyId": 19,
+   "name": "پگاه",
+   "latinName": "pegah",
+   "icon": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/brand/35172d2e-38b5-4774-911c-18c61f17a3bc.jfif",
+   "hasSpecificPage": false
+  },
+  {
+   "legacyId": 34067,
+   "name": "ماهشام",
+   "latinName": "mahsham",
+   "icon": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/brand/bc1a25d5-6420-47a1-b66f-72c7586ce45a.jpg",
+   "hasSpecificPage": false
+  }
+ ],
+ "success": true,
+ "tags": [
+  {
+   "key": "storeIds",
+   "value": [
+    4957,
+    11009,
+    52299,
+    53905
+   ]
+  }
+ ],
+ "errorMessage": null
+}

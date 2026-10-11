@@ -1,0 +1,73 @@
+{
+ "success": true,
+ "data": {
+  "storeId": 11009,
+  "storeName": "حمید",
+  "storeType": "سوپرمارکت",
+  "partnerId": "a39e0026-4ad6-4c3f-9666-018d7426daaa",
+  "logo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+  "earliestSlot": {
+   "isOnDemand": false,
+   "isScheduled": true,
+   "isClosed": false,
+   "caption": "امروز - 07 تا 08",
+   "from": "2026-10-07T07:00:00",
+   "to": "2026-10-07T08:00:00"
+  },
+  "minimumOrder": 2000000,
+  "rate": 4.1,
+  "isActive": true,
+  "isExist": true,
+  "isServes": true,
+  "storeStatusMessage": "فروشگاه فعال و در دسترس است",
+  "headerImageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/0b1ebc27-a413-413a-b1d0-bcb107e8c596.png",
+  "cost": 0,
+  "distance": 1.096620828810889,
+  "successOrdersCount": 0,
+  "storeLabels": [
+   {
+    "id": "eb7df96f-b5b8-48a3-88f9-00d7e2695ca5",
+    "title": "تضمین کیفیت",
+    "color": "#FF3B30",
+    "backgroundColor": "#FFF1F0",
+    "types": [
+     "StorePage"
+    ]
+   }
+  ],
+  "deliveryMethods": [
+   {
+    "title": "Delivery",
+    "description": "ارسال با پیک",
+    "status": "Available",
+    "radius": 2,
+    "defaultRadius": 2,
+    "vehicleType": {
+     "title": "Motorcycle",
+     "description": "پیک"
+    },
+    "vehicleReason": {
+     "title": "Default",
+     "description": "عادی"
+    },
+    "premiumAvailable": false,
+    "premiumCaption": null,
+    "premiumLogisticsPrice": null
+   }
+  ],
+  "storeLat": 35.746546,
+  "storeLng": 51.411692,
+  "storeAddress": null,
+  "displayOrder": 0,
+  "storeCategoryId": 3,
+  "storeCategoryName": "سوپرمارکت",
+  "csatCount": 100,
+  "isBuildingEntranceDelivery": false,
+  "logoUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+  "okalaLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png",
+  "tapsiMarketLogo": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/logo/2D8E4F10-6A22-45C1-9A77-3E1B8DCC1002.png"
+ },
+ "message": null,
+ "hasValidationError": false,
+ "errorCode": null
+}

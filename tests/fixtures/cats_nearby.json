@@ -1,0 +1,238 @@
+{
+ "data": {
+  "categories": [
+   {
+    "id": 3001,
+    "backgroundColor": "#ebf1e4",
+    "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/6fe7945f-146d-4698-97f9-723d393c43c2.png",
+    "displayOrder": 1,
+    "latinName": "kalabarg",
+    "level": 1,
+    "name": "کالابرگ",
+    "children": [
+     {
+      "id": 1483,
+      "backgroundColor": "#010000",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400469.png",
+      "displayOrder": 0,
+      "latinName": "cheese",
+      "level": 2,
+      "name": "پنیر",
+      "parentIds": [
+       1462,
+       3001
+      ],
+      "children": []
+     },
+     {
+      "id": 1484,
+      "backgroundColor": "#010000",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400470.png",
+      "displayOrder": 1,
+      "latinName": "milk",
+      "level": 2,
+      "name": "شیر",
+      "parentIds": [
+       1462,
+       3001
+      ],
+      "children": [
+       {
+        "id": 1604,
+        "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400801.png",
+        "displayOrder": 1,
+        "latinName": "full-fat-milk",
+        "level": 3,
+        "name": "شیر پرچرب",
+        "parentIds": [
+         1484
+        ],
+        "children": []
+       },
+       {
+        "id": 1605,
+        "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400599.png",
+        "displayOrder": 2,
+        "latinName": "low-fat-milk",
+        "level": 3,
+        "name": "شیر کم چرب و نیم چرب",
+        "parentIds": [
+         1484
+        ],
+        "children": []
+       }
+      ]
+     },
+     {
+      "id": 1485,
+      "backgroundColor": "#010000",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400471.png",
+      "displayOrder": 2,
+      "latinName": "yogurt",
+      "level": 2,
+      "name": "ماست",
+      "parentIds": [
+       1462,
+       3001
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": 1467,
+    "backgroundColor": "#faf5e3",
+    "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/2f3b008c-e436-4816-aac8-33316eea850c.png",
+    "displayOrder": 10,
+    "latinName": "refreshments",
+    "level": 1,
+    "name": "تنقلات",
+    "children": [
+     {
+      "id": 1649,
+      "backgroundColor": "#010000",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400636.png",
+      "displayOrder": 2,
+      "latinName": "snacks",
+      "level": 2,
+      "name": "پفک و اسنک",
+      "parentIds": [
+       1467
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": 1462,
+    "backgroundColor": "#f1fbfd",
+    "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/7cb1e151-572b-41fa-b9e9-c2035d662d46.png",
+    "displayOrder": 30,
+    "latinName": "dairy-products",
+    "level": 1,
+    "name": "لبنیات",
+    "children": [
+     {
+      "id": 1483,
+      "backgroundColor": "#010000",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400469.png",
+      "displayOrder": 0,
+      "latinName": "cheese",
+      "level": 2,
+      "name": "پنیر",
+      "parentIds": [
+       1462,
+       3001
+      ],
+      "children": []
+     },
+     {
+      "id": 1484,
+      "backgroundColor": "#010000",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400470.png",
+      "displayOrder": 1,
+      "latinName": "milk",
+      "level": 2,
+      "name": "شیر",
+      "parentIds": [
+       1462,
+       3001
+      ],
+      "children": [
+       {
+        "id": 1604,
+        "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400801.png",
+        "displayOrder": 1,
+        "latinName": "full-fat-milk",
+        "level": 3,
+        "name": "شیر پرچرب",
+        "parentIds": [
+         1484
+        ],
+        "children": []
+       },
+       {
+        "id": 1605,
+        "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400599.png",
+        "displayOrder": 2,
+        "latinName": "low-fat-milk",
+        "level": 3,
+        "name": "شیر کم چرب و نیم چرب",
+        "parentIds": [
+         1484
+        ],
+        "children": []
+       }
+      ]
+     },
+     {
+      "id": 1485,
+      "backgroundColor": "#010000",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400471.png",
+      "displayOrder": 2,
+      "latinName": "yogurt",
+      "level": 2,
+      "name": "ماست",
+      "parentIds": [
+       1462,
+       3001
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": 1465,
+    "backgroundColor": "#f7f0fd",
+    "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/ec53b587-5293-4f0a-a976-28e495f59426.png",
+    "displayOrder": 40,
+    "latinName": "beverages",
+    "level": 1,
+    "name": "نوشیدنی ها",
+    "children": [
+     {
+      "id": 1509,
+      "backgroundColor": "#fff7ec",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/32e342a3-9498-4364-b100-d96b50755d6b.png",
+      "displayOrder": 6,
+      "latinName": "juice",
+      "level": 2,
+      "name": "آبمیوه",
+      "parentIds": [
+       1465
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": 1464,
+    "backgroundColor": "#f5ebed",
+    "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/de4f04f7-f681-4a1a-aafa-f8a0fe58d87b.png",
+    "displayOrder": 70,
+    "latinName": "canned-ready-food",
+    "level": 1,
+    "name": "کنسرو و انواع غذا",
+    "children": [
+     {
+      "id": 1495,
+      "backgroundColor": "#010000",
+      "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/category/400481.png",
+      "displayOrder": 5,
+      "latinName": "canned-tuna",
+      "level": 2,
+      "name": "تن‌ماهی",
+      "parentIds": [
+       1464
+      ],
+      "children": []
+     }
+    ]
+   }
+  ],
+  "betterUse": "c1"
+ },
+ "success": true,
+ "tags": null,
+ "errorMessage": null
+}

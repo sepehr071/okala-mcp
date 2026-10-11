@@ -1,0 +1,71 @@
+{
+ "success": true,
+ "data": {
+  "partItems": [
+   {
+    "storeId": 11009,
+    "activeIndex": 0,
+    "deliverTimes": [
+     {
+      "date": "1405-07-15T00:00:00",
+      "dateStr": "چهارشنبه\n1405/7/15",
+      "dateEpoch": 1791318600,
+      "ranges": [
+       {
+        "title": "08 - 07",
+        "startEpoch": 1791343800,
+        "endEpoch": 1791347400,
+        "isActive": true,
+        "startDate": "1405-07-15T07:00:00",
+        "endDate": "1405-07-15T08:00:00",
+        "cost": 0,
+        "typeCode": 2,
+        "shippingCostSettingsId": 20839,
+        "description": null
+       },
+       {
+        "title": "09 - 08",
+        "startEpoch": 1791347400,
+        "endEpoch": 1791351000,
+        "isActive": false,
+        "startDate": "1405-07-15T08:00:00",
+        "endDate": "1405-07-15T09:00:00",
+        "cost": 0,
+        "typeCode": 2,
+        "shippingCostSettingsId": 20839,
+        "description": "ظرفیت تکمیل"
+       },
+       {
+        "title": "10 - 09",
+        "startEpoch": 1791351000,
+        "endEpoch": 1791354600,
+        "isActive": false,
+        "startDate": "1405-07-15T09:00:00",
+        "endDate": "1405-07-15T10:00:00",
+        "cost": 0,
+        "typeCode": 2,
+        "shippingCostSettingsId": 20839,
+        "description": "ظرفیت تکمیل"
+       },
+       {
+        "title": "22 - 21",
+        "startEpoch": 1791394200,
+        "endEpoch": 1791397800,
+        "isActive": false,
+        "startDate": "1405-07-15T21:00:00",
+        "endDate": "1405-07-15T22:00:00",
+        "cost": 0,
+        "typeCode": 2,
+        "shippingCostSettingsId": 20839,
+        "description": "ظرفیت تکمیل"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "message": null,
+ "hasValidationError": false,
+ "errorCode": null
+}

@@ -1,0 +1,26 @@
+{
+ "id": 269658,
+ "storeId": 11009,
+ "storeName": "حمید",
+ "name": "پفک پاف کینوا پنیری کینوفیت 45 گرمی",
+ "okPrice": 1560000.0,
+ "price": 2400000.0,
+ "quantity": 10,
+ "supplyStatus": 1,
+ "isBundle": false,
+ "isShowDiscount": true,
+ "categoryName": "پفک و اسنک",
+ "categoryWebLink": "/category/snacks",
+ "description": "پفک پاف کینوا پنیری کینوفیت 45 گرمی",
+ "brandName": "کینوفیت",
+ "brandLatinName": "quinofit",
+ "brandImage": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/brand/305c9865-5184-40cb-9a8c-cb9ce10b3d20.png",
+ "images": [
+  "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/4f101c09-d934-4ad7-9ac5-043c1aba60ca.jpg"
+ ],
+ "discountPercent": 35,
+ "storeTypeId": 28,
+ "maxOrderLimit": 1,
+ "hasQuantity": true,
+ "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/4f101c09-d934-4ad7-9ac5-043c1aba60ca.jpg"
+}

@@ -1,0 +1,103 @@
+{
+ "data": [
+  {
+   "storeId": 11009,
+   "maxOrderLimit": 50,
+   "isShowDiscount": false,
+   "quantity": 22,
+   "hasQuantity": true,
+   "id": 173472,
+   "name": "کراکر سبزیجات پنیری کراکس شیرین عسل 70 گرمی",
+   "price": 200000.0,
+   "okPrice": 200000.0,
+   "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/48e393fc-8e7d-4572-a243-41507afb3080.jpg",
+   "isBundle": false,
+   "supplyStatus": 1,
+   "docRankT": 859963393007522,
+   "masterProductId": 323850,
+   "discountPercent": 0
+  },
+  {
+   "storeId": 11009,
+   "maxOrderLimit": 5,
+   "isShowDiscount": true,
+   "quantity": 2,
+   "hasQuantity": true,
+   "personalizationIndex": 2,
+   "id": 621118,
+   "name": "پودر پنير پارمسان کاله 100 گرمی",
+   "price": 4100000.0,
+   "okPrice": 3075000.0,
+   "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/9dfae972-beaa-45e6-ab63-5e99714c496f.JPG",
+   "pinned": true,
+   "isBundle": false,
+   "supplyStatus": 1,
+   "docRankT": 123834728449009999,
+   "masterProductId": 233978,
+   "discountPercent": 25
+  },
+  {
+   "storeId": 11009,
+   "maxOrderLimit": 100,
+   "isShowDiscount": false,
+   "quantity": 12,
+   "hasQuantity": true,
+   "id": 215908,
+   "name": "بادام‌زمینی روکش‌دار پنیر ناچو الینا لینا (20 گرم)",
+   "price": 500000.0,
+   "okPrice": 500000.0,
+   "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/427029.png",
+   "isBundle": false,
+   "supplyStatus": 1,
+   "docRankT": 123834728448999401,
+   "masterProductId": 221073,
+   "discountPercent": 0
+  },
+  {
+   "storeId": 11009,
+   "maxOrderLimit": 5,
+   "isShowDiscount": false,
+   "quantity": 42,
+   "hasQuantity": true,
+   "id": 181686,
+   "name": "پنیر یواف بسته بندی 100 گرمی صباح",
+   "price": 530000.0,
+   "okPrice": 530000.0,
+   "imageUrl": "https://asset.okala.com/unsigned/rs:fill/size:0:0/plain/s3://cdn/product/288385.png",
+   "isBundle": false,
+   "catalogBadges": "[{\"id\":42,\"name\":\"kalabarg\",\"backgroundColor\":\"#ffffff\",\"textColor\":\"#ffffff\",\"priority\":1}]",
+   "supplyStatus": 1,
+   "docRankT": 123834728449009922,
+   "masterProductId": 208160,
+   "discountPercent": 0
+  }
+ ],
+ "suggestions": [
+  "پنیر پیتزا",
+  "پنیر خامه ای",
+  "پنیر ویلی",
+  "پنیر هراز",
+  "پنیر پارمسان",
+  "پنیر روزانه",
+  "پنیر پیتزا موزارلا",
+  "پنیر پگاه",
+  "پنیر لبنه"
+ ],
+ "success": true,
+ "tags": [
+  {
+   "key": "q",
+   "value": "پنیر"
+  },
+  {
+   "key": "searchEngine",
+   "value": "in-house"
+  },
+  {
+   "key": "storeTypeId",
+   "value": 28
+  }
+ ],
+ "queryId": "NzUxMzAwNzM4Njk3ODcyNTg4OC0wLTAtMQ",
+ "errorMessage": null
+}

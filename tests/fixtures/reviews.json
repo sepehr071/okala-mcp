@@ -1,0 +1,68 @@
+{
+ "data": {
+  "items": [
+   {
+    "reviewId": 1961267,
+    "reviewerName": "نیکا",
+    "hasName": true,
+    "vendorRate": 1,
+    "comment": "دوتا از محصولات تاریخ انقاشون‌تموم شده تماس گرفتیم با سوپری جواب ندادن",
+    "submittedAt": "2026-09-24T22:40:13.39",
+    "reasons": [
+     {
+      "title": "مشکل تاریخ انقضا",
+      "reasonType": "Dislike"
+     }
+    ]
+   },
+   {
+    "reviewId": 1840340,
+    "reviewerName": "کاربر اکالا",
+    "hasName": false,
+    "vendorRate": 5,
+    "comment": "عالی همه محصولات تازه و خوشمزه",
+    "submittedAt": "2026-09-23T09:14:06.128",
+    "reasons": []
+   },
+   {
+    "reviewId": 1470974,
+    "reviewerName": "هانیه",
+    "hasName": true,
+    "vendorRate": 1,
+    "comment": "با وجود تاکید با تماس تلفنی بازهم کالای تاریخ مصرف گذشته ارسال شده متاسفانه",
+    "submittedAt": "2026-09-09T15:09:26.026",
+    "reasons": [
+     {
+      "title": "مشکل تاریخ انقضا",
+      "reasonType": "Dislike"
+     }
+    ]
+   },
+   {
+    "reviewId": 1417240,
+    "reviewerName": "کاربر اکالا",
+    "hasName": false,
+    "vendorRate": 5,
+    "comment": "لطفا فاکتور بزارید.",
+    "submittedAt": "2026-09-07T09:23:04.119",
+    "reasons": []
+   },
+   {
+    "reviewId": 1384041,
+    "reviewerName": "کاربر اکالا",
+    "hasName": false,
+    "vendorRate": 2,
+    "comment": "روی آبمیوه ها زده قیت مصرف کننده، ۵۰ تومان\nدر صورتی که دونه ای ۶۸ تومان حساب شده با من\nعلت چیه؟ چرا باید گرونتر از چیزی که روی محصول نوشته بفروشید؟؟؟",
+    "submittedAt": "2026-09-05T20:11:08.244",
+    "reasons": []
+   }
+  ],
+  "pageIndex": 1,
+  "pageSize": 5,
+  "totalCount": 13,
+  "totalPages": 3
+ },
+ "isSuccess": true,
+ "message": null,
+ "statusCode": 200
+}
