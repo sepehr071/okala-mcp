@@ -2,9 +2,9 @@
 
 <div align="center">
 
-# 🛒 okala-mcp
+# okala-mcp: Okala MCP server for AI agents 🛒
 
-**Let your AI agent do the grocery price check on Okala.**<br>
+**Unofficial, read-only MCP server that lets your AI agent do the grocery price check on Okala (اُکالا), an Iranian online supermarket.**<br>
 Find the supermarkets, bakeries and fruit shops that deliver to your address, compare the same product<br>
 across nearby stores, check fees, minimum order and delivery slots, and catch today's deals, from Claude, Cursor or Copilot.
 
@@ -17,11 +17,23 @@ across nearby stores, check fees, minimum order and delivery slots, and catch to
 [![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=okala&config=eyJjb21tYW5kIjoidXZ4IiwiYXJncyI6WyJva2FsYS1tY3AiXX0=)
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_okala--mcp-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=okala&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22okala-mcp%22%5D%7D)
 
-[Quick start](#quick-start) · [What it can do](#what-it-can-do) · [Tools](#tools) · [FAQ](#faq) · [فارسی](#فارسی)
+[Quick start](#quick-start) · [For AI agents](#for-ai-agents) · [What it can do](#what-it-can-do) · [Tools](#tools) · [FAQ](#faq) · [فارسی](#فارسی)
 
 </div>
 
 ---
+
+## For AI agents
+
+- **What:** unofficial MCP server for Okala (okala.com, اُکالا), an Iranian online grocery marketplace where local supermarkets, bakeries and fruit shops deliver to an address. Queries work best in Persian; prices are in Toman.
+- **Install:** `claude mcp add okala -- uvx okala-mcp` (stdio transport, needs [uv](https://docs.astral.sh/uv/getting-started/installation/) and Python 3.10+).
+- **Auth:** none needed. An optional SMS login (`ok_login`) unlocks Okala's text search in `ok_search`. Env vars: `OKALA_MCP_PROXY` (HTTP proxy), `OKALA_MCP_TOKEN` (access token instead of the saved login).
+- **Access:** read-only. The 12 shopping tools only read; there is no cart, order or review tool. `ok_login`, `ok_login_verify` and `ok_logout` send an SMS or change the saved login, so ask the user before calling them.
+- **Tools:** 16, all prefixed `ok_`. Every location tool needs `lat` and `lon`, so start with `ok_locate`. Typical sequence: `ok_locate` → `ok_search` → `ok_compare`, or `ok_locate` → `ok_stores` → `ok_store_products`.
+- **Use when:** finding which stores deliver to an address, comparing one product's price and fees across nearby stores, or checking delivery slots and today's deals.
+- **Do not use when:** the user wants to order (no cart or checkout), or is outside Okala's delivery areas (Tehran and some other big cities).
+- **Output:** compact JSON, prices in Toman (the API's Rial divided by 10). `final_price` is what the buyer pays, `price` is before discount, `discount_pct` is a whole percent, ratings are 0-5. Pass `lat` and `lon` from `ok_locate`, and `store_id` from `ok_stores`, between tools.
+- **Machine-readable:** [`server.json`](server.json), and the catalog of all Iranian MCP servers at [awesome-iran-mcp](https://github.com/sepehr071/awesome-iran-mcp) ([TOOLS.md](https://github.com/sepehr071/awesome-iran-mcp/blob/main/TOOLS.md), [servers.json](https://github.com/sepehr071/awesome-iran-mcp/blob/main/servers.json), [llms.txt](https://github.com/sepehr071/awesome-iran-mcp/blob/main/llms.txt)).
 
 ## Why
 
@@ -195,6 +207,28 @@ The agent finds the best option; you buy it on okala.com.
 </details>
 
 <details>
+<summary><b>Is there an Okala API or MCP server for AI agents?</b></summary>
+
+Okala doesn't publish an official API for agents. `okala-mcp` is an unofficial MCP server that wraps the public
+endpoints of okala.com as 16 tools (12 read-only shopping tools and 4 optional login tools).
+</details>
+
+<details>
+<summary><b>How do I use Okala with Claude, Cursor or Copilot?</b></summary>
+
+Install the server once (see [Quick start](#quick-start)), then ask in plain language, in Persian or English, with an
+address or area so it can find the stores that deliver there. In Claude Code the install is
+`claude mcp add okala -- uvx okala-mcp`.
+</details>
+
+<details>
+<summary><b>Is it official, safe and free?</b></summary>
+
+It is unofficial and free (MIT). Shopping tools are read-only and need no account or API key. It runs on your machine
+with no hosted server in between; the optional login is saved only on your machine.
+</details>
+
+<details>
 <summary><b>Why does <code>ok_search</code> show products that don't match my words?</b></summary>
 
 As a guest (`mode: "category"`), Okala's text search is not available, so `ok_search` fetches the categories whose
@@ -259,11 +293,13 @@ uvx okala-mcp logout                     # deletes it
 
 Restart your MCP client after a command-line login (a running server reads the login once).
 
-## فارسی
+<a id="فارسی"></a>
+
+## فارسی: سرور MCP اُکالا
 
 <div dir="rtl">
 
-**okala-mcp** به دستیار هوش مصنوعی شما (Claude، Cursor، Copilot و ...) اجازه می&zwnj;دهد فروشگاه&zwnj;های اُکالا را که به
+**okala-mcp** یک سرور MCP غیررسمی برای سوپرمارکت اینترنتی ایرانی اُکالا است و به دستیار هوش مصنوعی شما (Claude، Cursor، Copilot و ...) اجازه می&zwnj;دهد فروشگاه&zwnj;های اُکالا را که به
 آدرس شما ارسال دارند پیدا کند، قیمت یک کالا را در همه&zwnj;ی فروشگاه&zwnj;های نزدیک مقایسه کند، هزینه&zwnj;ی خدمات و بسته&zwnj;بندی،
 حداقل سفارش و زمان&zwnj;های ارسال را ببیند و تخفیف&zwnj;های امروز را پیدا کند.
 
@@ -283,6 +319,8 @@ claude mcp add okala -- uvx okala-mcp
 
 بعد بپرسید: «ارزان&zwnj;ترین شیر کم چرب میهن نزدیک یوسف&zwnj;آباد تهران را کدام فروشگاه دارد؟»
 
+برای جستجو کافی است نام کالا و محله یا آدرس خود را به فارسی بنویسید، مثلاً «تن ماهی نزدیک میدان آرژانتین».
+
 </div>
 
 ## Development
@@ -300,6 +338,13 @@ docstring that tells the agent when to use it. Issues and PRs are welcome, espec
 
 Releases: bump the version in `pyproject.toml` and `server.json`, then push a `v*` tag. GitHub Actions tests,
 publishes to PyPI and the [MCP Registry](https://registry.modelcontextprotocol.io), and creates the GitHub Release.
+
+## Related servers
+
+- [Snappfood and SnappMarket MCP server](https://github.com/sepehr071/snapp-mcp) for food and grocery prices
+- All Iranian MCP servers: [awesome-iran-mcp](https://github.com/sepehr071/awesome-iran-mcp)
+
+If this saves you clicks, a star helps others find it.
 
 ## Disclaimer
 
