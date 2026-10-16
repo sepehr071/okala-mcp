@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 from pathlib import Path
@@ -7,6 +8,7 @@ import pytest
 from conftest import POINT, fixture
 from mcp import Client, types
 
+from okala_mcp import account
 from okala_mcp.server import mcp
 
 pytestmark = pytest.mark.anyio
@@ -63,6 +65,37 @@ async def test_login_in_two_steps(client, api):
     assert (await client.call_tool("ok_account", {})).structured_content["logged_in"] is False
 
 
+async def test_sms_cap_across_numbers(client, api):
+    okala(api)
+    for n in range(3):
+        await client.call_tool("ok_login", {"phone": f"0912123456{n}"})
+    over = await client.call_tool("ok_login", {"phone": "09129999999"})
+    assert over.is_error and "At most 3" in over.content[0].text
+    assert len(api.calls) == 3
+
+
+async def test_sms_cap_counts_resends_to_one_number(client, api):
+    okala(api)
+    for _ in range(3):
+        await client.call_tool("ok_login", {"phone": PHONE})
+        account._sent.clear()  # pretend the 2-minute resend timer ran out
+    over = await client.call_tool("ok_login", {"phone": PHONE})
+    assert over.is_error and "At most 3" in over.content[0].text
+    assert len(api.calls) == 3
+
+
+async def test_sms_cap_holds_under_parallel_calls(monkeypatch):
+    sent = []
+
+    async def slow_otp(client, mobile):
+        await asyncio.sleep(0)  # yield, as a real request would
+        sent.append(mobile)
+
+    monkeypatch.setattr(account.auth, "request_otp", slow_otp)
+    results = await asyncio.gather(*(account._send_code(f"0912000000{n}") for n in range(6)), return_exceptions=True)
+    assert len(sent) == 3 and sum(isinstance(r, account.ApiError) for r in results) == 3
+
+
 async def test_login_with_a_form(api):
     okala(api)
     asked = []
@@ -72,7 +105,7 @@ async def test_login_with_a_form(api):
         return types.ElicitResult(action="accept", content={"code": "12345"})
 
     async with Client(mcp, raise_exceptions=True, elicitation_callback=answer) as c:
-        out = (await c.call_tool("ok_login", {"phone": PHONE})).structured_content
+        out = json.loads((await c.call_tool("ok_login", {"phone": PHONE})).content[0].text)
     assert out["logged_in"] is True and "0912***4567" in asked[0] and saved()["access_token"] == "t1"
 
 
@@ -83,7 +116,7 @@ async def test_closed_form_leaves_the_chat_flow(api):
         return types.ElicitResult(action="cancel")
 
     async with Client(mcp, raise_exceptions=True, elicitation_callback=decline) as c:
-        out = (await c.call_tool("ok_login", {"phone": PHONE})).structured_content
+        out = json.loads((await c.call_tool("ok_login", {"phone": PHONE})).content[0].text)
     assert out["status"] == "code_sent" and "closed the form" in out["next"]
     assert not Path(os.environ["OKALA_MCP_TOKEN_FILE"]).exists()
 

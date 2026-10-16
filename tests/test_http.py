@@ -1,8 +1,14 @@
+import asyncio
+import json
 import re
 from pathlib import Path
 
 import httpx
 import pytest
+from mcp import Client
+
+from okala_mcp import http
+from okala_mcp.server import mcp
 
 pytestmark = pytest.mark.anyio
 
@@ -16,8 +22,20 @@ async def test_all_tools_are_read_only(client):
     for t in tools:
         assert t.name.startswith("ok_"), t.name
         assert t.annotations.read_only_hint is (t.name not in login_tools), t.name
-        assert t.annotations.destructive_hint is False, t.name
+        assert t.annotations.destructive_hint is (t.name == "ok_logout"), t.name  # it deletes the saved login
         assert t.description and t.title, t.name
+        assert "title" not in t.input_schema, t.name  # pydantic's schema noise is stripped
+        assert all("title" not in p for p in t.input_schema["properties"].values()), t.name
+
+
+async def test_one_text_block_and_no_output_schema():
+    """The real client path: one compact TextContent, no structuredContent, no outputSchema (tokens)."""
+    http.set_transport(httpx.MockTransport(lambda request: httpx.Response(200, json=[])))
+    async with Client(mcp, raise_exceptions=True) as c:
+        assert all(t.output_schema is None for t in (await c.list_tools()).tools)
+        result = await c.call_tool("ok_brands", {})
+    assert len(result.content) == 1 and result.content[0].type == "text"
+    assert result.structured_content is None and json.loads(result.content[0].text) == {"brands": []}
 
 
 async def test_readme_tool_tables_match_the_server(client):
@@ -48,6 +66,28 @@ async def test_dropped_connection_is_retried_once(client, api):
     api[BRANDS] = flaky
     result = await client.call_tool("ok_brands", {})
     assert not result.is_error and len(attempts) == 2
+
+
+async def test_gateway_error_is_retried_once_but_not_a_404(client, api):
+    answers = iter([503, 200])
+    api[BRANDS] = lambda request: httpx.Response(next(answers), json=[])
+    assert not (await client.call_tool("ok_brands", {})).is_error and len(api.calls) == 2
+
+    api.calls.clear()
+    api[BRANDS] = lambda request: httpx.Response(404)
+    assert (await client.call_tool("ok_brands", {})).is_error and len(api.calls) == 1
+
+
+async def test_parallel_401s_refresh_the_token_once(api):
+    api[BRANDS] = lambda r: (
+        httpx.Response(200, json=[]) if r.headers["Authorization"] == "Bearer new" else httpx.Response(401)
+    )
+    api["/api/v1/accounts/tokens"] = {"access_token": "new", "refresh_token": "r2"}
+    http.use_login({"access_token": "old", "refresh_token": "r1"})
+    await asyncio.gather(
+        http.api("/azarakhsh/v1/Brand/GetPopularBrands"), http.api("/azarakhsh/v1/Brand/GetPopularBrands")
+    )
+    assert [c.url.path for c in api.calls].count("/api/v1/accounts/tokens") == 1
 
 
 async def test_network_error_after_retry(client, api):

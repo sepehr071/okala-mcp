@@ -53,7 +53,10 @@ def save(data: dict[str, Any]) -> None:
     path = token_path()
     path.parent.mkdir(parents=True, exist_ok=True)
     keep = {k: data[k] for k in ("access_token", "refresh_token", "expires_in", "mobile") if data.get(k) is not None}
-    path.write_text(json.dumps(keep), encoding="utf-8")
+    # Created 0600 from the start (no readable window); the chmod covers a file that already existed.
+    # On Windows the mode is not enforced: the file is plain text in the user's profile.
+    with os.fdopen(os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600), "w", encoding="utf-8") as f:
+        f.write(json.dumps(keep))
     try:
         path.chmod(0o600)
     except OSError:

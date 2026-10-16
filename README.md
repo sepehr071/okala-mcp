@@ -147,8 +147,8 @@ There's no hosted server in between, no API key, and nothing about you is sent a
 |---|---|
 | `ok_locate` | Address text → coordinates (candidates) plus the street address of the best hit |
 | `ok_stores` | Stores that deliver to a point: type, rating, distance, first slot, service / packaging / delivery fee |
-| `ok_store` | One store: serves this point?, minimum order, location, every delivery slot with availability |
-| `ok_store_reviews` | Customer reviews of a store: stars, comment, liked / disliked reasons |
+| `ok_store` | One store: serves this point?, minimum order, location, open delivery slots (`all_slots` adds full ones with availability) |
+| `ok_store_reviews` | Customer reviews of a store: stars, comment (`full_text` for whole), liked / disliked reasons |
 </details>
 
 <details open>
@@ -159,7 +159,7 @@ There's no hosted server in between, no API key, and nothing about you is sent a
 | `ok_search` | Products for a query near a point or in one store: Okala's text search when logged in, matching categories as a guest; name matches first, then cheapest |
 | `ok_compare` | The same product across nearby stores, cheapest store first, with each store's fees |
 | `ok_store_products` | A whole category of one store, sorted, filtered by name (search inside one store) |
-| `ok_product` | One product in one store: price, discount, stock, max per order, brand, images |
+| `ok_product` | One product in one store: price, discount, stock, max per order, brand, images, description (`full_text` for whole) |
 | `ok_categories` | Category tree with slugs, near a point or in one store |
 | `ok_brands` | Brand ids and slugs (featured brands, or lookup by slug) |
 </details>
@@ -185,7 +185,8 @@ There's no hosted server in between, no API key, and nothing about you is sent a
 </details>
 
 The 12 shopping tools are annotated `readOnlyHint: true`. `ok_login`, `ok_login_verify` and `ok_logout` are not
-(they send an SMS or change the saved login), so your client asks before running them. Every tool returns compact
+(they send an SMS or change the saved login), so your client asks before running them; `ok_logout` is also
+`destructiveHint: true`. At most 3 login codes are sent per hour. Every tool returns compact
 structured JSON, so it doesn't flood the agent's context.
 
 ## Good to know

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 from typing import Annotated, Any, Literal
 
 from pydantic import Field
@@ -43,13 +44,17 @@ async def ok_deals(
     store_id: that store's rows plus its biggest discounts. Open a whole row with ok_offer(carousel_id).
     """
     store_ids = [store_id] if store_id else await open_store_ids(lat, lon)
-    body = await api(
+    offers = api(
         "/carousel/v4/offers",
         {"pageType": "storepage" if store_id else "HomePage", "storeIds": store_ids, "latitude": lat, "longitude": lon},
     )
+    if store_id:
+        top_call = api("/carousel/v4/offers/highest-discount", {"storeId": store_id, "take": 10, "page": 1})
+        body, top = await asyncio.gather(offers, top_call)
+    else:
+        body = await offers
     out: dict[str, Any] = {"rows": [_row(c, per_row) for c in body.get("carousels") or []]}
     if store_id:
-        top = await api("/carousel/v4/offers/highest-discount", {"storeId": store_id, "take": 10, "page": 1})
         out["top_discounts"] = {
             "total": top.get("totalCount") or 0,
             "products": [item(p) for p in top.get("entities") or []],

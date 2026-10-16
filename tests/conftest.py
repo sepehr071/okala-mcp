@@ -34,6 +34,8 @@ def fresh_http_client(request, monkeypatch, tmp_path):
     http.set_transport(None)
     stores._cities.clear()
     account._sent.clear()
+    account._sms_times.clear()
+    monkeypatch.setattr(http, "RETRY_DELAY", 0)
     yield
     http.set_transport(None)
 
@@ -80,4 +82,13 @@ def api():
 @pytest.fixture
 async def client():
     async with Client(mcp, raise_exceptions=True) as c:
+        call_tool = c.call_tool
+
+        async def parsed(*args, **kwargs):
+            result = await call_tool(*args, **kwargs)
+            if not result.is_error and result.content and hasattr(result.content[0], "text"):
+                result.structured_content = json.loads(result.content[0].text)
+            return result
+
+        c.call_tool = parsed
         yield c

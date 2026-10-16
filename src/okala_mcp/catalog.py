@@ -12,7 +12,7 @@ from pydantic import Field
 
 from .http import ApiError, api, logged_in
 from .registry import tool
-from .stores import Lat, Lon, StoreId, nearby, norm, store_fees, toman
+from .stores import Lat, Lon, StoreId, clip, nearby, norm, store_fees, toman
 
 Slug = Annotated[
     str,
@@ -21,8 +21,8 @@ Slug = Annotated[
         description="Category slug (latinName) from ok_categories / ok_search, e.g. 'milk', 'dairy-products'.",
     ),
 ]
-OptLat = Annotated[float | None, Field(ge=25, le=40, description="Delivery point latitude, e.g. 35.7372.")]
-OptLon = Annotated[float | None, Field(ge=44, le=64, description="Delivery point longitude, e.g. 51.4154.")]
+OptLat = Annotated[float | None, Field(ge=25, le=40, description="Latitude from ok_locate, e.g. 35.7372.")]
+OptLon = Annotated[float | None, Field(ge=44, le=64, description="Longitude from ok_locate, e.g. 51.4154.")]
 InStock = Annotated[bool, Field(description="Only products that can be ordered now.")]
 
 SORTS = {"cheapest": 0, "most_expensive": 1, "discount": 2, "default": 3}
@@ -144,19 +144,13 @@ async def ok_search(
     ] = None,
     limit: Annotated[int, Field(ge=1, le=60, description="Max products to return.")] = 20,
 ) -> dict[str, Any]:
-    """Find products by text, best matches first, then cheapest (Toman). `mode` tells which way ran:
+    """Find products by text near a point (or in one store with store_id), best matches first, then
+    cheapest (Toman). `mode`: "text" = Okala's own search (logged in; brands and product names too, up
+    to 12 per store); "category" = guest fallback matching the query to nearby category names (a pure
+    brand name may find nothing: pick a slug from ok_categories; store_id needs login, else use
+    ok_store_products with name_contains).
 
-    - "text" (when logged in with `okala-mcp login`): Okala's own search across all nearby open stores
-      (lat + lon, up to 12 products per store), or inside one store (store_id). Matches brands and
-      product names too ('نوتلا'). `suggestions` are Okala's related queries.
-    - "category" (guest): Okala has no public text search, so the query words are matched against the
-      nearby category names, the best category (two on a tie) is fetched across nearby open stores, and
-      products whose names contain the query words come first. A pure brand or product name may find
-      nothing: then pick a slug from ok_categories. store_id needs login; as a guest use
-      ok_store_products with name_contains.
-
-    Use for "how much is X near me". Then: ok_compare (same product in several stores with fees),
-    ok_product (one product in one store).
+    Use for "how much is X near me". Then: ok_compare (several stores, with fees), ok_product (one store).
     """
     tokens = _tokens(query)
     if not tokens:
@@ -284,13 +278,11 @@ async def ok_compare(
     in_stock_only: InStock = True,
     limit: Annotated[int, Field(ge=1, le=30, description="Max products to return.")] = 10,
 ) -> dict[str, Any]:
-    """Which nearby store sells the same product cheapest. Fetches a category (and/or brand) from every store
-    that delivers to the point and is open now, groups by product id (the same id is the same item in every store) and lists
-    each store's price, cheapest first. Products sold by the most stores come first.
+    """Which open nearby store sells the same product cheapest: a category and/or brand from every store,
+    grouped by product id, each store's price cheapest first; products sold by most stores come first.
 
-    `stores` holds each store's name, distance, earliest slot and fees: the true cost of an order is the
-    items + service fee + packaging fee + delivery fee, and the store's minimum order applies (ok_store).
-    Up to 12 products per store come back per call: narrow with a deeper slug or a brand_id.
+    `stores` has each store's distance, earliest slot and fees (true cost = items + fees; the minimum
+    order applies, see ok_store). At most 12 products per store: narrow with a deeper slug or brand_id.
     """
     if not category_slug and not brand_id:
         raise ApiError("Pass category_slug (from ok_search / ok_categories) or brand_id (from ok_brands).")
@@ -356,7 +348,7 @@ async def ok_store_products(
         Field(max_length=100, description="Keep only products whose name contains every word, e.g. 'کم چرب'."),
     ] = None,
     in_stock_only: InStock = True,
-    limit: Annotated[int, Field(ge=1, le=100, description="Max products to return.")] = 50,
+    limit: Annotated[int, Field(ge=1, le=100, description="Max products to return.")] = 30,
     offset: Annotated[int, Field(ge=0, le=5000, description="Skip this many matches (paging).")] = 0,
 ) -> dict[str, Any]:
     """A whole category of one store (the API returns all of it at once), sorted and optionally filtered by
@@ -385,6 +377,9 @@ async def ok_store_products(
 async def ok_product(
     product_id: Annotated[int, Field(ge=1, le=2_147_483_647, description="Product id from any list, e.g. 269658.")],
     store_id: StoreId,
+    full_text: Annotated[
+        bool, Field(description="Return the whole description (default: cut at 600 characters).")
+    ] = False,
 ) -> dict[str, Any]:
     """One product in one store: price and discount (Toman), stock, max per order, brand, category,
     images and description. `sold_here: false` = this store does not sell it (try ok_compare).
@@ -406,7 +401,7 @@ async def ok_product(
         "category": p.get("categoryName"),
         "category_slug": link.rstrip("/").rsplit("/", 1)[-1] or None,
         "is_bundle": bool(p.get("isBundle")),
-        "description": description[:1500] if description and description != out["name"] else None,
+        "description": clip(description, 600, full_text) if description != out["name"] else None,
         "images": (p.get("images") or [p.get("imageUrl")])[:2],
         "url": f"https://www.okala.com/product/{product_id}?storeId={store_id}",
     }

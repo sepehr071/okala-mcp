@@ -3,15 +3,18 @@
 from collections.abc import Callable
 from typing import Any
 
-TOOLS: list[tuple[Callable[..., Any], str, bool]] = []
+TOOLS: list[tuple[Callable[..., Any], str, bool, bool]] = []
 
 
-def tool(title: str, read_only: bool = True) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def tool(
+    title: str, read_only: bool = True, destructive: bool = False
+) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Mark an async function as an MCP tool with a human-readable title.
-    read_only=False only for the login tools (they send an SMS or change the saved login)."""
+    read_only=False only for the login tools (they send an SMS or change the saved login);
+    destructive=True for the one that deletes the saved login."""
 
     def register(fn: Callable[..., Any]) -> Callable[..., Any]:
-        TOOLS.append((fn, title, read_only))
+        TOOLS.append((fn, title, read_only, destructive))
         return fn
 
     return register

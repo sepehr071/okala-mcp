@@ -1,6 +1,6 @@
 [project]
 name = "okala-mcp"
-version = "0.1.2"
+version = "0.2.0"
 description = "Unofficial read-only MCP server for Okala: find grocery stores that deliver to you, compare prices across stores, browse deals."
 readme = "README.md"
 license = "MIT"

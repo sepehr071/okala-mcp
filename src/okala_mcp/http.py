@@ -2,8 +2,8 @@
 
 Every tool goes through `api`, which returns the parsed JSON body as-is: the envelope differs per
 service (opex `{success, data}`, review `{isSuccess, data}`, carousel own top level, bare objects and
-arrays for pdp / brands / ParsiMap). `_send` caps concurrency, retries once when the server drops the
-connection, and turns HTTP failures and `success: false` bodies into `ToolError` messages the model
+arrays for pdp / brands / ParsiMap). `_send` caps concurrency, retries a GET once (dropped connection,
+HTTP 502/503/504, after a short fixed pause), and turns HTTP failures and `success: false` bodies into `ToolError` messages the model
 can act on.
 """
 
@@ -29,6 +29,8 @@ HEADERS = {
 }
 
 MAX_CONCURRENCY = 4
+RETRY_DELAY = 0.5  # seconds before the one retry of a GET
+RETRY_STATUS = (502, 503, 504)
 
 # Reasons the unicorn lists give in `tags` when they answer HTTP 200 with `success: false`.
 TAG_REASONS = {
@@ -40,6 +42,7 @@ TAG_REASONS = {
 _transport: httpx.AsyncBaseTransport | None = None
 _client: httpx.AsyncClient | None = None
 _limit: asyncio.Semaphore | None = None
+_refresh_lock: asyncio.Lock | None = None
 
 
 class ApiError(ToolError):
@@ -48,8 +51,8 @@ class ApiError(ToolError):
 
 def set_transport(transport: httpx.AsyncBaseTransport | None) -> None:
     """Swap the transport (tests use httpx.MockTransport). Drops the current client and the loaded token."""
-    global _transport, _client, _limit, _token
-    _transport, _client, _limit, _token = transport, None, None, _UNSET
+    global _transport, _client, _limit, _refresh_lock, _token
+    _transport, _client, _limit, _refresh_lock, _token = transport, None, None, None, _UNSET
 
 
 _UNSET: Any = object()
@@ -80,7 +83,7 @@ def client() -> httpx.AsyncClient:
 
 
 def _get_client() -> tuple[httpx.AsyncClient, asyncio.Semaphore]:
-    global _client, _limit
+    global _client, _limit, _refresh_lock
     if _client is None:
         # Okala answers direct connections fine; a proxy is only used when the user opts in
         # with OKALA_MCP_PROXY.
@@ -93,6 +96,7 @@ def _get_client() -> tuple[httpx.AsyncClient, asyncio.Semaphore]:
             proxy=os.environ.get("OKALA_MCP_PROXY") or None,
         )
         _limit = asyncio.Semaphore(MAX_CONCURRENCY)
+        _refresh_lock = asyncio.Lock()
     assert _limit is not None
     return _client, _limit
 
@@ -120,8 +124,13 @@ async def _send(method: str, url: str, **kwargs: Any) -> httpx.Response:
     r = await _request(method, url, **kwargs)
     if r.status_code == 401 and token():
         # Expired access token: refresh once; if Okala refuses, carry on as a guest for this process.
+        # Parallel calls can all see the 401: the first one refreshes, the others reuse its new token.
         client, _ = _get_client()
-        _token = await auth.refresh(client, token() or {})
+        stale = token()
+        assert _refresh_lock is not None
+        async with _refresh_lock:
+            if token() is stale:
+                _token = await auth.refresh(client, stale or {})
         r = await _request(method, url, **kwargs)
     if r.status_code >= 400:
         detail = ""
@@ -141,16 +150,19 @@ async def _request(method: str, url: str, headers: dict[str, str] | None = None,
         try:
             async with limit:
                 r = await client.request(method, url, headers=headers, **kwargs)
-            break
         except httpx.TimeoutException as e:
             raise ApiError("okala.com did not answer in time. Try again in a moment.") from e
         except httpx.TransportError as e:
-            if attempt == 2:
+            if attempt == 2 or method != "GET":
                 raise ApiError(
                     f"Could not reach okala.com ({type(e).__name__}). Check the internet connection, "
                     "or set OKALA_MCP_PROXY."
                 ) from e
-    return r
+        else:
+            if attempt == 2 or method != "GET" or r.status_code not in RETRY_STATUS:
+                return r
+        await asyncio.sleep(RETRY_DELAY)
+    raise AssertionError("unreachable")
 
 
 def _reason(body: dict[str, Any]) -> str:

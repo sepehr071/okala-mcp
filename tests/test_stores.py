@@ -59,8 +59,6 @@ async def test_ok_stores(client, api):
         "rating_count": 100,
         "distance_km": 1.1,
         "slot": "امروز - 07 تا 08",
-        "slot_from": "2026-10-07T07:00:00",
-        "slot_to": "2026-10-07T08:00:00",
         "is_closed": False,
         "service_fee": 10500,  # Rial 105000 -> Toman
         "packaging_fee": 3000,
@@ -98,11 +96,19 @@ async def test_ok_store(client, api):
     assert out["location"] == {"lat": 35.746546, "lon": 51.411692}
     day = out["delivery_days"][0]
     assert (day["date"], day["weekday"], day["available_slots"]) == ("2026-10-07", "چهارشنبه", 1)
-    assert day["slots"][:2] == [
-        {"time": "07:00-08:00", "available": True},
-        {"time": "08:00-09:00", "available": False, "note": "ظرفیت تکمیل"},
-    ]
-    assert day["slots"][-1]["time"] == "21:00-22:00"
+    assert day["slots"] == [{"time": "07:00-08:00"}]  # full slots are left out
+    assert out["slot_from"] == "2026-10-07T07:00:00"  # ok_store keeps the ISO times
+
+
+async def test_ok_store_all_slots(client, api):
+    api[DETAILS] = fixture("details.json")
+    api[SCHEDULE] = fixture("schedule.json")
+    api[REVIEWS] = fixture("reviews.json")
+    out = (await client.call_tool("ok_store", {"store_id": 11009, "all_slots": True, **POINT})).structured_content
+    day = out["delivery_days"][0]
+    assert day["available_slots"] == 1 and len(day["slots"]) > 1
+    assert day["slots"][0] == {"time": "07:00-08:00", "available": True}
+    assert day["slots"][1] == {"time": "08:00-09:00", "available": False, "note": "ظرفیت تکمیل"}
 
 
 async def test_ok_store_unknown_and_out_of_coverage(client, api):
@@ -140,3 +146,11 @@ async def test_ok_store_reviews(client, api):
 
     result = await client.call_tool("ok_store_reviews", {"store_id": 11009, "sort": "Oldest"})
     assert result.is_error and len(api.calls) == 1  # rejected before calling (the API answers an empty 400)
+
+
+async def test_ok_store_reviews_full_text(client, api):
+    api[REVIEWS] = {"data": {"totalCount": 1, "items": [{"comment": "x" * 500}]}}
+    clipped = (await client.call_tool("ok_store_reviews", {"store_id": 11009})).structured_content
+    assert clipped["reviews"][0]["comment"].endswith("[cut]")
+    whole = (await client.call_tool("ok_store_reviews", {"store_id": 11009, "full_text": True})).structured_content
+    assert whole["reviews"][0]["comment"] == "x" * 500

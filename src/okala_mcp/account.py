@@ -21,7 +21,10 @@ Phone = Annotated[
 ]
 RESEND_SECONDS = 120  # Okala's own resend timer; also stops an agent from spamming someone's phone
 
+MAX_SMS_PER_HOUR = 3  # process-wide cap on codes sent (any numbers), against an agent spraying SMS
+
 _sent: dict[str, float] = {}  # mobile -> time the last code was sent
+_sms_times: list[float] = []  # time of every code sent in the last hour
 
 
 class SmsCode(BaseModel):
@@ -64,13 +67,22 @@ async def _send_code(mobile: str) -> None:
     is also what keeps a retry from sending a second SMS."""
     if time.monotonic() - _sent.get(mobile, -RESEND_SECONDS) < RESEND_SECONDS:
         return
+    _sms_times[:] = [t for t in _sms_times if time.monotonic() - t <= 3600]
+    if len(_sms_times) >= MAX_SMS_PER_HOUR:
+        raise ApiError(f"At most {MAX_SMS_PER_HOUR} login codes can be sent per hour. Try again later.")
+    # Recorded before the await so parallel calls cannot all pass the checks; undone if sending fails.
+    now = _sent[mobile] = time.monotonic()
+    _sms_times.append(now)
     try:
         await auth.request_otp(http.client(), mobile)
-    except auth.AuthError as e:
-        raise ApiError(str(e)) from None
-    except httpx.HTTPError as e:
-        raise ApiError(f"Could not reach okala.com ({type(e).__name__}). Try again.") from e
-    _sent[mobile] = time.monotonic()
+    except BaseException as e:
+        _sms_times.remove(now)
+        _sent.pop(mobile, None)
+        if isinstance(e, auth.AuthError):
+            raise ApiError(str(e)) from None
+        if isinstance(e, httpx.HTTPError):
+            raise ApiError(f"Could not reach okala.com ({type(e).__name__}). Try again.") from e
+        raise
 
 
 async def _sms_code(phone: str, ctx: Context) -> Elicit[SmsCode] | None:
@@ -135,7 +147,7 @@ async def ok_account() -> dict[str, Any]:
     }
 
 
-@tool("Log out of Okala", read_only=False)
+@tool("Log out of Okala", read_only=False, destructive=True)
 async def ok_logout() -> dict[str, Any]:
     """Delete the saved Okala login on this machine; the server continues as a guest."""
     auth.forget()
