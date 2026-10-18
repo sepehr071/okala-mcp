@@ -1,6 +1,7 @@
 import asyncio
 import json
 import re
+import sys
 from pathlib import Path
 
 import httpx
@@ -49,12 +50,13 @@ async def test_headers_sent_on_every_call(client, api):
     await client.call_tool("ok_brands", {})
     await client.call_tool("ok_brands", {})
     first, second = api.calls[0].headers, api.calls[1].headers
-    assert first["source"] == "okala" and "Chrome" in first["User-Agent"]
+    assert first["source"] == "okala" and first["Origin"] == "https://www.okala.com"
+    assert first["sec-fetch-site"] == "same-site" and first["Accept-Language"].startswith("fa-IR")
     assert re.fullmatch(r"[0-9a-f-]{36}", first["x-user-unique-id"])
     assert first["x-user-unique-id"] == second["x-user-unique-id"]  # one id per process
 
 
-async def test_dropped_connection_is_retried_once(client, api):
+async def test_dropped_connection_is_retried(client, api):
     attempts = []
 
     def flaky(request):
@@ -97,16 +99,96 @@ async def test_network_error_after_retry(client, api):
     api[BRANDS] = down
     result = await client.call_tool("ok_brands", {})
     assert result.is_error and "Could not reach okala.com (ConnectError)" in result.content[0].text
-    assert len(api.calls) == 2
+    assert len(api.calls) == 3
 
 
-async def test_timeout_is_not_retried(client, api):
+async def test_timeout_is_retried_twice(client, api):
     def slow(request):
         raise httpx.ReadTimeout("timed out", request=request)
 
     api[BRANDS] = slow
     result = await client.call_tool("ok_brands", {})
-    assert result.is_error and "did not answer in time" in result.content[0].text and len(api.calls) == 1
+    assert result.is_error and "did not answer in time" in result.content[0].text and len(api.calls) == 3
+
+
+async def test_403_is_not_retried(client, api):
+    api[BRANDS] = lambda r: httpx.Response(403, text="<html>Request Rejected</html>")
+    assert (await client.call_tool("ok_brands", {})).is_error and len(api.calls) == 1
+
+
+def test_is_challenge():
+    html = {"content-type": "text/html"}
+    assert http._is_challenge(httpx.Response(403, text="<html>Just a moment...</html>", headers=html))
+    assert http._is_challenge(httpx.Response(403, text="<html>The requested URL was rejected.</html>", headers=html))
+    assert not http._is_challenge(httpx.Response(403, text="<html>Forbidden</html>", headers=html))
+    assert not http._is_challenge(httpx.Response(403, json={"x": 1}))
+    assert not http._is_challenge(httpx.Response(200, text="<html>Just a moment</html>", headers=html))
+
+
+async def test_proxy_list_rotates_and_stale_client_does_not(monkeypatch, api):
+    monkeypatch.setenv("OKALA_MCP_PROXY", "http://p1:1, http://p2:2")
+    assert http._proxies() == ["http://p1:1", "http://p2:2"]
+    old, _ = http._get_client()
+    http._next_proxy(old)
+    new, _ = http._get_client()
+    assert http._proxy_index == 1 and new is not old
+    http._next_proxy(old)  # a late failure on the retired client must not skip the proxy now in use
+    assert http._proxy_index == 1 and http._client is new
+    monkeypatch.setenv("OKALA_MCP_PROXY", "http://p1:1")
+    http._next_proxy(new)  # a single proxy never rotates
+    assert http._client is new
+
+
+async def test_challenge_cleared_by_browser_once(monkeypatch, api):
+    runs = []
+
+    async def fake_browser(proxy):
+        runs.append(proxy)
+        await asyncio.sleep(0.01)
+        return [{"name": "clearance", "value": "ok", "domain": ".okala.com", "path": "/"}]
+
+    monkeypatch.setattr(http, "_browser_cookies", fake_browser)
+
+    def guarded(request):
+        if "clearance=ok" not in request.headers.get("cookie", ""):
+            return httpx.Response(403, text="<html>Just a moment</html>", headers={"content-type": "text/html"})
+        return httpx.Response(200, json=[])
+
+    api[BRANDS] = guarded
+    await asyncio.gather(
+        http.api("/azarakhsh/v1/Brand/GetPopularBrands"), http.api("/azarakhsh/v1/Brand/GetPopularBrands")
+    )
+    assert len(runs) == 1  # the second caller reused the cookies the first one fetched
+
+
+async def test_challenge_without_patchright(monkeypatch, client, api):
+    monkeypatch.setitem(sys.modules, "patchright.async_api", None)  # makes the import fail
+    api[BRANDS] = lambda r: httpx.Response(
+        403, text="<html>Just a moment</html>", headers={"content-type": "text/html"}
+    )
+    result = await client.call_tool("ok_brands", {})
+    assert result.is_error and "okala-mcp[browser]" in result.content[0].text
+
+
+async def test_retry_after_is_honoured_and_capped(monkeypatch, client, api):
+    waits = []
+
+    async def fake_sleep(s):
+        waits.append(s)
+
+    monkeypatch.setattr(http.asyncio, "sleep", fake_sleep)
+    answers = iter([("3",), ("99",)])
+    hits = []
+
+    def limited(request):
+        hits.append(1)
+        if len(hits) <= 2:
+            return httpx.Response(429, json=[], headers={"Retry-After": next(answers)[0]})
+        return httpx.Response(200, json=[])
+
+    api[BRANDS] = limited
+    assert not (await client.call_tool("ok_brands", {})).is_error
+    assert [w for w in waits if w] == [3.0, 10]
 
 
 @pytest.mark.parametrize(

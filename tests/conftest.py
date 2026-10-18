@@ -36,6 +36,7 @@ def fresh_http_client(request, monkeypatch, tmp_path):
     account._sent.clear()
     account._sms_times.clear()
     monkeypatch.setattr(http, "RETRY_DELAY", 0)
+    monkeypatch.setattr(http, "JITTER", (0, 0))
     yield
     http.set_transport(None)
 

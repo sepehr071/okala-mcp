@@ -167,13 +167,14 @@ async def refresh(client: httpx.AsyncClient, current: dict[str, Any]) -> dict[st
 
 async def _cli(args: list[str]) -> str:
     mobile = mobile_number(args[1])
-    proxy = os.environ.get("OKALA_MCP_PROXY") or None
-    async with httpx.AsyncClient(timeout=30, trust_env=False, proxy=proxy, headers={"source": "okala"}) as c:
-        if len(args) == 2:
-            await request_otp(c, mobile)
-            return f"SMS code sent to {mobile}. Now run: okala-mcp login {mobile} <code>"
-        await verify_otp(c, mobile, args[2])
-        return f"Logged in. Token saved to {token_path()}; ok_search now uses Okala's text search."
+    from . import http  # late: http imports auth
+
+    c = http.client()  # same Chrome-like client as the tools
+    if len(args) == 2:
+        await request_otp(c, mobile)
+        return f"SMS code sent to {mobile}. Now run: okala-mcp login {mobile} <code>"
+    await verify_otp(c, mobile, args[2])
+    return f"Logged in. Token saved to {token_path()}; ok_search now uses Okala's text search."
 
 
 def cli(args: list[str]) -> None:

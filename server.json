@@ -8,13 +8,13 @@
     "source": "github"
   },
   "websiteUrl": "https://github.com/sepehr071/okala-mcp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "packages": [
     {
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "okala-mcp",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "runtimeHint": "uvx",
       "transport": {
         "type": "stdio"
@@ -22,7 +22,7 @@
       "environmentVariables": [
         {
           "name": "OKALA_MCP_PROXY",
-          "description": "Optional HTTP proxy URL for requests to okala.com; system proxy settings are ignored.",
+          "description": "Optional HTTP proxy URL for requests to okala.com, or a comma-separated list used one at a time (next one after a block); system proxy settings are ignored.",
           "isRequired": false,
           "isSecret": false
         },

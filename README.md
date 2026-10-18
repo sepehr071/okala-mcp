@@ -247,8 +247,10 @@ similar name in another district) and try again; `ok_stores` with `open_only: fa
 <details>
 <summary><b>I get "Could not reach okala.com"</b></summary>
 
-The server retries a dropped connection once. If it still fails, check your internet connection. System proxy
-variables are ignored on purpose; set `OKALA_MCP_PROXY` if you need a proxy.
+The server retries a dropped connection or a rate-limit answer twice. If it still fails, check your internet connection. System proxy
+variables are ignored on purpose; set `OKALA_MCP_PROXY` if you need a proxy. If Okala shows a bot-check page, install
+the browser extra (`pip install "okala-mcp[browser]"`, then `patchright install chromium`) and the server clears it
+once in a headless browser.
 </details>
 
 <details>
@@ -263,7 +265,7 @@ npx @modelcontextprotocol/inspector uvx okala-mcp
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `OKALA_MCP_PROXY` | unset | HTTP proxy for every request, e.g. `http://user:pass@host:port` |
+| `OKALA_MCP_PROXY` | unset | HTTP proxy for every request, e.g. `http://user:pass@host:port`; a comma-separated list is used one at a time (next one after a block) |
 | `OKALA_MCP_TOKEN_FILE` | `~/.okala-mcp/token.json` | Where `okala-mcp login` saves the login |
 | `OKALA_MCP_TOKEN` | unset | An Okala access token to use instead of the saved login (not refreshed) |
 
