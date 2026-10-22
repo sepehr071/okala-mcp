@@ -1,13 +1,13 @@
 [project]
 name = "okala-mcp"
-version = "0.3.0"
+version = "0.3.1"
 description = "Unofficial read-only MCP server for Okala: find grocery stores that deliver to you, compare prices across stores, browse deals."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Sepehr Radmard", email = "sepehrr80@gmail.com" }]
 requires-python = ">=3.10"
-keywords = ["mcp", "model-context-protocol", "okala", "iran", "e-commerce", "shopping", "grocery", "supermarket"]
+keywords = ["mcp", "mcp-server", "model-context-protocol", "iran", "persian", "okala", "grocery", "supermarket", "price-comparison", "online-shopping", "e-commerce", "delivery", "ai-agents", "claude"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
