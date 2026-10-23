@@ -37,7 +37,7 @@ find the stores that deliver to you, compare one product across nearby stores, c
 - **Use when:** finding which stores deliver to an address, comparing one product's price and fees across nearby stores, or checking delivery slots, minimum order and today's deals.
 - **Do not use when:** the user wants to order (no cart or checkout), or is outside Okala's delivery areas (Tehran and some other big cities).
 - **Output:** compact JSON, prices in **Toman** (the API's Rial divided by 10). `final_price` is what the buyer pays, `price` is before discount, `discount_pct` is a whole percent, ratings are 0-5. Pass `lat` and `lon` from `ok_locate`, and `store_id` from `ok_stores`, between tools.
-- **Machine-readable:** [`server.json`](https://github.com/sepehr071/okala-mcp/blob/main/server.json), and the catalog of all Iranian MCP servers at [awesome-iran-mcp](https://github.com/sepehr071/awesome-iran-mcp) ([TOOLS.md](https://github.com/sepehr071/awesome-iran-mcp/blob/main/TOOLS.md), [servers.json](https://github.com/sepehr071/awesome-iran-mcp/blob/main/servers.json), [llms.txt](https://github.com/sepehr071/awesome-iran-mcp/blob/main/llms.txt)).
+- **Machine-readable:** [`server.json`](https://github.com/sepehr071/okala-mcp/blob/main/server.json), and the catalog of all Iranian MCP servers at [iran-mcp](https://github.com/sepehr071/iran-mcp) ([TOOLS.md](https://github.com/sepehr071/iran-mcp/blob/main/TOOLS.md), [servers.json](https://github.com/sepehr071/iran-mcp/blob/main/servers.json), [llms.txt](https://github.com/sepehr071/iran-mcp/blob/main/llms.txt)).
 
 ## Why
 
@@ -403,7 +403,7 @@ publishes to PyPI and the [MCP Registry](https://registry.modelcontextprotocol.i
 
 ## Related servers
 
-- [awesome-iran-mcp](https://github.com/sepehr071/awesome-iran-mcp): catalog of all Iranian-service MCP servers
+- [iran-mcp](https://github.com/sepehr071/iran-mcp): catalog of all Iranian-service MCP servers
 - [snapp-mcp](https://github.com/sepehr071/snapp-mcp) for Snappfood and SnappMarket food and grocery prices
 - [tapsifood-mcp](https://github.com/sepehr071/tapsifood-mcp) for restaurant and food delivery on Tapsi Food
 - [digikala-mcp](https://github.com/sepehr071/digikala-mcp) for product search and prices on Digikala
@@ -418,9 +418,9 @@ website, which can change without notice. Please keep request rates reasonable.
 
 ## Author
 
-<a href="https://www.linkedin.com/in/sepehr-radmard"><img src="https://raw.githubusercontent.com/sepehr071/awesome-iran-mcp/main/assets/author-banner.png" alt="Sepehr Radmard: open-source MCP servers for the Iranian web. LinkedIn: linkedin.com/in/sepehr-radmard" width="100%"></a>
+<a href="https://www.linkedin.com/in/sepehr-radmard"><img src="https://raw.githubusercontent.com/sepehr071/iran-mcp/main/assets/author-banner.png" alt="Sepehr Radmard: open-source MCP servers for the Iranian web. LinkedIn: linkedin.com/in/sepehr-radmard" width="100%"></a>
 
-Built and maintained by **Sepehr Radmard** (سپهر رادمرد). Connect on [LinkedIn](https://www.linkedin.com/in/sepehr-radmard) or follow [@sepehr071 on GitHub](https://github.com/sepehr071) for more MCP servers for Iranian websites, all listed in [awesome-iran-mcp](https://github.com/sepehr071/awesome-iran-mcp). If this saves you time, a star on the repo helps other people find it.
+Built and maintained by **Sepehr Radmard** (سپهر رادمرد). Connect on [LinkedIn](https://www.linkedin.com/in/sepehr-radmard) or follow [@sepehr071 on GitHub](https://github.com/sepehr071) for more MCP servers for Iranian websites, all listed in [iran-mcp](https://github.com/sepehr071/iran-mcp). If this saves you time, a star on the repo helps other people find it.
 
 ## License
 
