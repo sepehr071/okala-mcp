@@ -35,6 +35,7 @@ Homepage = "https://github.com/sepehr071/okala-mcp"
 Source = "https://github.com/sepehr071/okala-mcp"
 Changelog = "https://github.com/sepehr071/okala-mcp/releases"
 Issues = "https://github.com/sepehr071/okala-mcp/issues"
+Website = "https://mcpfarsi.ir/servers/okala/"
 
 [project.scripts]
 okala-mcp = "okala_mcp.server:main"
