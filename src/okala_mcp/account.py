@@ -96,13 +96,11 @@ async def _sms_code(phone: str, ctx: Context) -> Elicit[SmsCode] | None:
 
 @tool("Log in to Okala (sends an SMS code)", read_only=False)
 async def ok_login(phone: Phone, code: Annotated[ElicitationResult[SmsCode], Resolve(_sms_code)]) -> dict[str, Any]:
-    """Log in to the user's Okala account, which unlocks Okala's real text search in ok_search
-    (brands and product names, inside one store too). Optional: every other tool works as a guest.
+    """Log in to the user's Okala account, unlocking real text search in ok_search. Optional.
 
-    Only call this when the user asked to log in and gave THEIR OWN phone number. It sends an SMS code to
-    that number (at most one every 2 minutes). If the client can show a form, the user types the code there
-    and the login finishes in this call. Otherwise the reply says `code_sent`: ask the user for the code and
-    call ok_login_verify. Nothing is ordered or changed in the account.
+    Only when the user asked to log in and gave THEIR OWN phone number. Sends an SMS code (at most one every
+    2 minutes). With a form the user types the code there; otherwise the reply says `code_sent`: ask for the
+    code and call ok_login_verify.
     """
     mobile = _mobile(phone)
     if isinstance(code, AcceptedElicitation) and isinstance(code.data, SmsCode):
@@ -121,17 +119,15 @@ async def ok_login(phone: Phone, code: Annotated[ElicitationResult[SmsCode], Res
 @tool("Finish the Okala login", read_only=False)
 async def ok_login_verify(
     phone: Phone,
-    code: Annotated[str, Field(min_length=4, max_length=12, description="The SMS code, e.g. '12345'.")],
+    code: Annotated[str, Field(min_length=4, max_length=12, description="The SMS code.")],
 ) -> dict[str, Any]:
-    """Finish a login started with ok_login: the code the user received by SMS. Saves the login on this
-    machine (it refreshes itself); afterwards ok_search uses Okala's text search."""
+    """Finish a login started with ok_login with the SMS code. Saves the login on this machine."""
     return await _verify(_mobile(phone), code)
 
 
 @tool("Okala login status")
 async def ok_account() -> dict[str, Any]:
-    """Whether the server is logged in to Okala (and as which phone, masked). Logged in = ok_search uses
-    Okala's text search; guest = category matching. To log in: ok_login."""
+    """Whether the server is logged in to Okala (phone masked); guest = category-only ok_search."""
     login = http.token()
     if not login:
         return {

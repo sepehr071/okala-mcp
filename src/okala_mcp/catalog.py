@@ -18,12 +18,12 @@ Slug = Annotated[
     str,
     Field(
         pattern=r"^[A-Za-z0-9_-]{1,80}$",
-        description="Category slug (latinName) from ok_categories / ok_search, e.g. 'milk', 'dairy-products'.",
+        description="Category slug from ok_categories / ok_search, e.g. 'milk'.",
     ),
 ]
-OptLat = Annotated[float | None, Field(ge=25, le=40, description="Latitude from ok_locate, e.g. 35.7372.")]
-OptLon = Annotated[float | None, Field(ge=44, le=64, description="Longitude from ok_locate, e.g. 51.4154.")]
-InStock = Annotated[bool, Field(description="Only products that can be ordered now.")]
+OptLat = Annotated[float | None, Field(ge=25, le=40, description="Latitude from ok_locate.")]
+OptLon = Annotated[float | None, Field(ge=44, le=64, description="Longitude from ok_locate.")]
+InStock = Annotated[bool, Field(description="Only orderable products.")]
 
 SORTS = {"cheapest": 0, "most_expensive": 1, "discount": 2, "default": 3}
 GUEST_TIP = (
@@ -89,15 +89,12 @@ def _flat(nodes: list[dict[str, Any]], seen: dict[int, dict[str, Any]] | None = 
 async def ok_categories(
     lat: OptLat = None,
     lon: OptLon = None,
-    store_id: Annotated[int | None, Field(ge=1, description="Instead of a point: one store's categories.")] = None,
-    depth: Annotated[
-        int, Field(ge=1, le=3, description="Levels to return: 1 departments, 2 + sub-categories, 3 all.")
-    ] = 2,
+    store_id: Annotated[int | None, Field(ge=1, description="One store instead of a point.")] = None,
+    depth: Annotated[int, Field(ge=1, le=3, description="Levels: 1 departments, 2 + sub-categories, 3 all.")] = 2,
 ) -> dict[str, Any]:
     """Category tree (id, slug, Persian name, children) of everything sold near a point, or in one store.
 
-    Use to find the slug for ok_compare / ok_store_products when ok_search's guess is off, or to show
-    what a store sells. Level-1 slugs (departments, e.g. 'dairy-products') work in ok_store_products.
+    Use to find a slug for ok_compare / ok_store_products. Level-1 slugs ('dairy-products') work in ok_store_products.
     """
     if (lat is None) != (lon is None) or (lat is None) == (store_id is None):
         raise ApiError("Pass either lat + lon (stores near a point) or store_id, not both.")
@@ -131,26 +128,19 @@ def _hits(tokens: list[str], name: str) -> int:
 async def ok_search(
     query: Annotated[
         str,
-        Field(
-            min_length=2,
-            max_length=100,
-            description="What to buy, in Persian, e.g. 'شیر کم چرب', 'پنیر لیقوان', 'تن ماهی'.",
-        ),
+        Field(min_length=2, max_length=100, description="What to buy, in Persian, e.g. 'شیر کم چرب'."),
     ],
     lat: OptLat = None,
     lon: OptLon = None,
-    store_id: Annotated[
-        int | None, Field(ge=1, description="Search inside this store only (needs login), e.g. 11009.")
-    ] = None,
-    limit: Annotated[int, Field(ge=1, le=60, description="Max products to return.")] = 20,
+    store_id: Annotated[int | None, Field(ge=1, description="Search this store only (needs login).")] = None,
+    limit: Annotated[int, Field(ge=1, le=60, description="Max products.")] = 20,
 ) -> dict[str, Any]:
     """Find products by text near a point (or in one store with store_id), best matches first, then
-    cheapest (Toman). `mode`: "text" = Okala's own search (logged in; brands and product names too, up
-    to 12 per store); "category" = guest fallback matching the query to nearby category names (a pure
-    brand name may find nothing: pick a slug from ok_categories; store_id needs login, else use
-    ok_store_products with name_contains).
+    cheapest (Toman). `mode`: "text" = Okala's own search (logged in; up to 12 per store); "category" =
+    guest fallback matching the query to category names (a brand name may find nothing: pick a slug from
+    ok_categories; in one store use ok_store_products with name_contains).
 
-    Use for "how much is X near me". Then: ok_compare (several stores, with fees), ok_product (one store).
+    Use for "how much is X near me", then ok_compare or ok_product.
     """
     tokens = _tokens(query)
     if not tokens:
@@ -264,25 +254,19 @@ async def ok_compare(
     lon: Lon,
     category_slug: Annotated[
         str | None,
-        Field(
-            pattern=r"^[A-Za-z0-9_-]{1,80}$", description="Category slug from ok_search / ok_categories, e.g. 'milk'."
-        ),
+        Field(pattern=r"^[A-Za-z0-9_-]{1,80}$", description="Category slug from ok_search / ok_categories."),
     ] = None,
     brand_id: Annotated[
         int | None,
-        Field(
-            ge=1,
-            description="Brand id from ok_brands / ok_search (e.g. 1 = Kalleh); with a slug = that brand in the category.",
-        ),
+        Field(ge=1, description="Brand id from ok_brands / ok_search; with a slug = that brand in the category."),
     ] = None,
     in_stock_only: InStock = True,
-    limit: Annotated[int, Field(ge=1, le=30, description="Max products to return.")] = 10,
+    limit: Annotated[int, Field(ge=1, le=30, description="Max products.")] = 10,
 ) -> dict[str, Any]:
-    """Which open nearby store sells the same product cheapest: a category and/or brand from every store,
-    grouped by product id, each store's price cheapest first; products sold by most stores come first.
+    """Which open nearby store sells the same product cheapest: a category and/or brand, grouped by product id,
+    each store's price cheapest first; products sold by most stores come first.
 
-    `stores` has each store's distance, earliest slot and fees (true cost = items + fees; the minimum
-    order applies, see ok_store). At most 12 products per store: narrow with a deeper slug or brand_id.
+    `stores` has distance, earliest slot and fees. At most 12 products per store: narrow with a deeper slug or brand_id.
     """
     if not category_slug and not brand_id:
         raise ApiError("Pass category_slug (from ok_search / ok_categories) or brand_id (from ok_brands).")
@@ -339,23 +323,20 @@ async def ok_store_products(
     category_slug: Slug,
     sort: Annotated[
         Literal["cheapest", "most_expensive", "discount", "default"],
-        Field(
-            description="cheapest / most_expensive (price to pay), discount (biggest % off), default (site ranking)."
-        ),
+        Field(description="Price to pay, biggest % off, or the site ranking."),
     ] = "default",
     name_contains: Annotated[
         str | None,
-        Field(max_length=100, description="Keep only products whose name contains every word, e.g. 'کم چرب'."),
+        Field(max_length=100, description="Name must contain every word, e.g. 'کم چرب'."),
     ] = None,
     in_stock_only: InStock = True,
-    limit: Annotated[int, Field(ge=1, le=100, description="Max products to return.")] = 30,
-    offset: Annotated[int, Field(ge=0, le=5000, description="Skip this many matches (paging).")] = 0,
+    limit: Annotated[int, Field(ge=1, le=100, description="Max products.")] = 30,
+    offset: Annotated[int, Field(ge=0, le=5000, description="Skip this many matches.")] = 0,
 ) -> dict[str, Any]:
-    """A whole category of one store (the API returns all of it at once), sorted and optionally filtered by
-    name, prices in Toman. `total` counts the matches before limit / offset.
+    """A whole category of one store, sorted and optionally filtered by name, prices in Toman. `total` counts
+    matches before limit / offset.
 
-    This is the way to search inside one store: pass a level-1 department slug (ok_categories with
-    store_id, e.g. 'dairy-products') plus name_contains. Details of one product: ok_product.
+    To search inside one store: a level-1 department slug (ok_categories with store_id) plus name_contains.
     """
     body = await api(f"/unicorn/v2/products/store/{store_id}", {"slug": category_slug, "Sort": SORTS[sort]})
     rows = [item(p) for p in body.get("data") or []]
@@ -375,16 +356,12 @@ async def ok_store_products(
 
 @tool("Product details in a store")
 async def ok_product(
-    product_id: Annotated[int, Field(ge=1, le=2_147_483_647, description="Product id from any list, e.g. 269658.")],
+    product_id: Annotated[int, Field(ge=1, le=2_147_483_647, description="Product id from any list.")],
     store_id: StoreId,
-    full_text: Annotated[
-        bool, Field(description="Return the whole description (default: cut at 600 characters).")
-    ] = False,
+    full_text: Annotated[bool, Field(description="Whole description (else cut at 600 chars).")] = False,
 ) -> dict[str, Any]:
     """One product in one store: price and discount (Toman), stock, max per order, brand, category,
     images and description. `sold_here: false` = this store does not sell it (try ok_compare).
-
-    The product id is the same in every store; the price and stock are per store.
     """
     p = await api("/Unicorn/v1/catalog/pdp", {"sId": store_id, "pId": product_id})
     out = item(p)
@@ -411,14 +388,11 @@ async def ok_product(
 async def ok_brands(
     name: Annotated[
         str | None,
-        Field(
-            max_length=60, description="Brand name in Persian or Latin, or its slug, e.g. 'کاله', 'kalleh', 'mihan'."
-        ),
+        Field(max_length=60, description="Brand name (Persian or Latin) or slug, e.g. 'کاله', 'kalleh'."),
     ] = None,
 ) -> dict[str, Any]:
-    """Brand ids for ok_compare (`brand_id`) and slugs. Okala publishes only a short list of featured brands;
-    any other brand is looked up by its Latin slug (as in okala.com/brands/<slug>; ok_product returns
-    brand_slug, ok_search returns the brands of its results with ids).
+    """Brand ids for ok_compare (`brand_id`) and slugs. Only featured brands are listed; any other is looked
+    up by its Latin slug (okala.com/brands/<slug>, or ok_product's brand_slug).
     """
     featured = await api("/azarakhsh/v1/Brand/GetPopularBrands")
     brands = [_brand(b) for b in featured or []]

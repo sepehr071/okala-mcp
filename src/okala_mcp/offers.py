@@ -14,8 +14,8 @@ from .stores import Lat, Lon, open_store_ids, toman
 
 PAGE_SIZE = 20
 SINGLE_SORTS = {"default": None, "cheapest": 0, "most_expensive": 1, "discount": 2}
-CarouselId = Annotated[int, Field(ge=1, le=2_147_483_647, description="Deal row id (carousel_id) from ok_deals.")]
-OptStore = Annotated[int | None, Field(ge=1, le=2_147_483_647, description="Store id from ok_stores, e.g. 11009.")]
+CarouselId = Annotated[int, Field(ge=1, le=2_147_483_647, description="carousel_id from ok_deals.")]
+OptStore = Annotated[int | None, Field(ge=1, le=2_147_483_647, description="Store id from ok_stores.")]
 
 
 def _row(c: dict[str, Any], per_row: int) -> dict[str, Any]:
@@ -36,12 +36,12 @@ async def ok_deals(
     lat: Lat,
     lon: Lon,
     store_id: OptStore = None,
-    per_row: Annotated[int, Field(ge=1, le=12, description="Products to show per deal row.")] = 3,
+    per_row: Annotated[int, Field(ge=1, le=12, description="Products per row.")] = 3,
 ) -> dict[str, Any]:
-    """Deal rows running now, with their end time (UTC) and top products (Toman, discount, store).
+    """Deal rows running now, with end time (UTC) and top products (Toman).
 
-    Without store_id: the home-page rows across every open store that delivers to the point. With
-    store_id: that store's rows plus its biggest discounts. Open a whole row with ok_offer(carousel_id).
+    Without store_id: home-page rows across open stores near the point. With store_id: that store's rows plus
+    its biggest discounts. Open a row with ok_offer.
     """
     store_ids = [store_id] if store_id else await open_store_ids(lat, lon)
     offers = api(
@@ -70,12 +70,12 @@ async def ok_offer(
     store_id: OptStore = None,
     sort: Annotated[
         Literal["default", "cheapest", "most_expensive", "discount"],
-        Field(description="default (row order), cheapest / most_expensive (price to pay), discount (biggest % off)."),
+        Field(description="Row order, price to pay, or biggest % off."),
     ] = "default",
-    page: Annotated[int, Field(ge=1, le=100, description=f"Page number, from 1 ({PAGE_SIZE} products per page).")] = 1,
+    page: Annotated[int, Field(ge=1, le=100, description=f"From 1 ({PAGE_SIZE} per page).")] = 1,
 ) -> dict[str, Any]:
-    """Every product of one deal row (from ok_deals), Toman. Without store_id: across all open stores that
-    deliver to the point, with each store's product count and price range; with store_id: that store only.
+    """Every product of one deal row (from ok_deals), Toman. Without store_id: all open stores near the point,
+    with each store's product count and price range; with store_id: that store only.
     """
     if store_id:
         body = await api(

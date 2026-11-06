@@ -12,9 +12,9 @@ from pydantic import Field
 from .http import ApiError, api
 from .registry import tool
 
-Lat = Annotated[float, Field(ge=25, le=40, description="Latitude from ok_locate, e.g. 35.7372.")]
-Lon = Annotated[float, Field(ge=44, le=64, description="Longitude from ok_locate, e.g. 51.4154.")]
-StoreId = Annotated[int, Field(ge=1, le=2_147_483_647, description="Store id from ok_stores, e.g. 11009.")]
+Lat = Annotated[float, Field(ge=25, le=40, description="Latitude from ok_locate.")]
+Lon = Annotated[float, Field(ge=44, le=64, description="Longitude from ok_locate.")]
+StoreId = Annotated[int, Field(ge=1, le=2_147_483_647, description="Store id from ok_stores.")]
 
 STORE_TYPES = ("SuperMarket", "Bakery", "FruitMarket", "ChainStore", "Opack")
 TEHRAN = timezone(timedelta(hours=3, minutes=30))  # Iran has had no DST since 2022
@@ -75,18 +75,13 @@ def _slot(slot: dict[str, Any] | None, times: bool = True) -> dict[str, Any]:
 async def ok_locate(
     address: Annotated[
         str,
-        Field(
-            min_length=2, max_length=200, description="Address or place in Persian, e.g. 'میدان ونک' or 'یوسف آباد'."
-        ),
+        Field(min_length=2, max_length=200, description="Persian address or place, e.g. 'میدان ونک'."),
     ],
-    city: Annotated[
-        str, Field(min_length=2, max_length=40, description="City name in Persian, e.g. 'تهران', 'مشهد'.")
-    ] = "تهران",
+    city: Annotated[str, Field(min_length=2, max_length=40, description="Persian city name, e.g. 'مشهد'.")] = "تهران",
 ) -> dict[str, Any]:
     """Turn an address into coordinates (lat, lon) for every other tool, plus the street address of the best hit.
 
-    Use first when the user gives an address or place name; then pass the chosen candidate's lat / lon to
-    ok_stores, ok_search, ok_compare or ok_deals. Candidates can mix similar names: check `description`.
+    Use first; pass the chosen candidate's lat / lon on. Candidates can mix similar names: check `description`.
     """
     global _cities
     if not _cities:
@@ -136,16 +131,15 @@ async def ok_stores(
     lon: Lon,
     store_type: Annotated[
         Literal["SuperMarket", "Bakery", "FruitMarket", "ChainStore", "Opack"] | None,
-        Field(description="Only one kind: SuperMarket, Bakery, FruitMarket, ChainStore (Ofogh, HyperFamily) or Opack."),
+        Field(description="Only this kind (ChainStore = Ofogh, HyperFamily)."),
     ] = None,
-    open_only: Annotated[bool, Field(description="Leave out stores that are closed / cannot deliver now.")] = True,
-    limit: Annotated[int, Field(ge=1, le=100, description="Max stores to return, in the site's order.")] = 20,
+    open_only: Annotated[bool, Field(description="Skip closed stores.")] = True,
+    limit: Annotated[int, Field(ge=1, le=100, description="Max stores.")] = 20,
 ) -> dict[str, Any]:
     """Okala stores that deliver to a point, in the site's order: id, type, rating, distance, earliest
-    slot and the fees added to every order (service, packaging, delivery; Toman).
+    slot and per-order fees (service, packaging, delivery; Toman).
 
-    Use after ok_locate. Pass store ids to ok_store (minimum order, slots), ok_store_products, ok_product
-    and ok_deals; to compare one product across stores use ok_compare. `count` = matches before `limit`.
+    Use after ok_locate. `count` = matches before `limit`.
     """
     data = await nearby(lat, lon, store_type)
     stores = data.get("stores") or []
@@ -191,14 +185,12 @@ async def ok_store(
     store_id: StoreId,
     lat: Lat,
     lon: Lon,
-    all_slots: Annotated[bool, Field(description="Also list full slots with an available flag.")] = False,
+    all_slots: Annotated[bool, Field(description="Include full slots, with an available flag.")] = False,
 ) -> dict[str, Any]:
     """One store as seen from the delivery point: whether it delivers there now, minimum order (Toman),
-    rating, distance and location, the earliest slot, and every still-open delivery slot of the next days
-    (Tehran local time).
+    rating, distance, location, earliest slot and open delivery slots of the next days (Tehran time).
 
-    Use before recommending a store: the basket must reach `minimum_order`. Fees per order are in
-    ok_stores; written reviews in ok_store_reviews.
+    Use before recommending a store: the basket must reach `minimum_order`.
     """
     body = await api(
         "/opex/v2/stores/details",
@@ -274,17 +266,15 @@ def clip(text: str | None, limit: int = 400, full: bool = False) -> str | None:
 async def ok_store_reviews(
     store_id: StoreId,
     sort: Annotated[
-        Literal["Newest", "HighestRate", "LowestRate"], Field(description="Newest first, or by star rating.")
+        Literal["Newest", "HighestRate", "LowestRate"], Field(description="Order: newest or by star rating.")
     ] = "Newest",
-    page: Annotated[int, Field(ge=1, le=500, description="Page number, from 1.")] = 1,
-    page_size: Annotated[int, Field(ge=1, le=50, description="Reviews per page.")] = 10,
-    full_text: Annotated[bool, Field(description="Return whole comments (default: cut at 400 characters).")] = False,
+    page: Annotated[int, Field(ge=1, le=500, description="From 1.")] = 1,
+    page_size: Annotated[int, Field(ge=1, le=50, description="Per page.")] = 10,
+    full_text: Annotated[bool, Field(description="Whole comments (else cut at 400 chars).")] = False,
 ) -> dict[str, Any]:
-    """Read customers' reviews of a store: 1-5 stars, comment, date and the reasons they ticked
-    (liked: product variety, ...; disliked: expiry date problems, ...).
+    """Read customers' reviews of a store: 1-5 stars, comment, date and the reasons they ticked.
 
-    Use as a quality check before recommending a store; LowestRate shows the complaints first.
-    The average rating and rating count are in ok_stores / ok_store.
+    Use as a quality check; LowestRate shows complaints first.
     """
     body = await api(f"/review/v1/stores/{store_id}/reviews", {"PageIndex": page, "PageSize": page_size, "Sort": sort})
     data = body.get("data") or {}

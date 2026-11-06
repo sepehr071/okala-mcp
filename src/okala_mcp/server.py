@@ -17,24 +17,21 @@ supermarkets, bakeries, fruit shops and chain stores deliver to the customer's a
 location-based. Nothing here can fill a cart, order or post reviews.
 
 Login is optional and only unlocks Okala's real text search. When ok_search answers in "category" mode
-and the user wants better search, offer to log in: ok_login with the user's own phone sends an SMS
-code (the client may show a form for it; otherwise ask the user for the code and call
-ok_login_verify). Never log in without the user asking for it. ok_account shows the state, ok_logout ends it.
+and the user wants better search, offer it: ok_login with the user's own phone sends an SMS code (a form,
+or ask the user and call ok_login_verify). Never log in unasked. ok_account shows the state, ok_logout ends it.
 
 Workflow:
-1. ok_locate: address text -> lat / lon, e.g. 35.7372 / 51.4154 (every location tool takes both from here;
-   there is no default point). store_id comes from ok_stores, e.g. 11009.
-2. ok_stores: stores that deliver there, with rating, earliest slot and per-order fees.
+1. ok_locate: address -> lat / lon (every location tool takes both; there is no default point).
+2. ok_stores: stores that deliver there (store_id), with rating, earliest slot and per-order fees.
 3. Find products:
-   - ok_search: "how much is X near me" (or in one store with store_id). Its `mode` says how it ran:
-     "text" = Okala's own search (the user logged in); "category" = guest fallback that matches the
-     query to category names, so check the `categories` it used and refine with a slug.
-   - ok_compare: the same product across nearby stores, cheapest store first (category slug or brand id).
-   - ok_store_products: one store's whole category, sorted, with name_contains (search inside one store).
+   - ok_search: "how much is X near me" (or one store with store_id). `mode` "text" = Okala's own search
+     (logged in); "category" = guest fallback matching category names: check the `categories` it used and
+     refine with a slug.
+   - ok_compare: the same product across nearby stores, cheapest first (category slug or brand id).
+   - ok_store_products: one store's category, sorted, with name_contains.
    - ok_categories / ok_brands: slugs and brand ids.
-4. ok_product: one product in one store (stock, max per order, images, description).
-5. ok_deals / ok_offer: deal rows near the point or in one store, and one row in full.
-   ok_store: minimum order, delivery slots; ok_store_reviews: what customers say.
+4. ok_product: one product in one store. ok_deals / ok_offer: deal rows, and one row in full.
+   ok_store: minimum order, slots; ok_store_reviews: customer comments.
 
 Conventions: all prices are Toman (the API's Rial / 10). final_price is what the customer pays, price
 is before discount, discount_pct is an int. Prices and stock are per store; a product id is the same
@@ -81,6 +78,13 @@ for t in mcp._tool_manager.list_tools():
     t.parameters.pop("title", None)
     for prop in t.parameters.get("properties", {}).values():
         prop.pop("title", None)
+        # `X | None` -> {"type": [X, "null"], ...}: the same contract in fewer tokens
+        any_of = prop.get("anyOf")
+        if any_of and len(any_of) == 2 and {"type": "null"} in any_of:
+            inner = next(x for x in any_of if x != {"type": "null"})
+            if isinstance(inner.get("type"), str):
+                del prop["anyOf"]
+                prop.update(inner, type=[inner["type"], "null"])
 
 
 def main() -> None:
