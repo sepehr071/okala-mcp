@@ -26,7 +26,7 @@ find the stores that deliver to you, compare one product across nearby stores, c
 
 ## Table of contents
 
-[For AI agents](#for-ai-agents) · [Why](#why) · [What it can do](#what-it-can-do) · [Quick start](#quick-start) · [Tools](#tools) · [How it works](#how-it-works) · [Good to know](#good-to-know) · [Optional login](#optional-login) · [FAQ](#faq) · [Configuration](#configuration) · [فارسی](#فارسی) · [Development](#development) · [Related servers](#related-servers) · [Disclaimer](#disclaimer) · [License](#license)
+[For AI agents](#for-ai-agents) · [Why](#why) · [What it can do](#what-it-can-do) · [Quick start](#quick-start) · [Tools](#tools) · [Good to know](#good-to-know) · [Optional login](#optional-login) · [FAQ](#faq) · [Configuration](#configuration) · [فارسی](#فارسی) · [Development](#development) · [Related servers](#related-servers) · [Disclaimer](#disclaimer) · [License](#license)
 
 ## For AI agents
 
@@ -218,24 +218,6 @@ Start with `ok_locate`: every location tool takes `lat` and `lon` from it, and `
 The 12 shopping tools and `ok_account` are annotated `readOnlyHint: true`. `ok_login`, `ok_login_verify` and `ok_logout` are not
 (they send an SMS or change the saved login), so your client asks before running them; `ok_logout` is also
 `destructiveHint: true`. At most 3 login codes are sent per hour.
-
-## How it works
-
-```text
-  AI agent  (Claude, Cursor, Copilot, ...)
-      │
-      │  MCP over stdio
-      ▼
-  okala-mcp  (runs on your machine)
-      │
-      │  HTTPS
-      └──────▶  apigateway.okala.com   the JSON API behind okala.com
-```
-
-`okala-mcp` runs locally and calls the same endpoints the okala.com website uses, as a guest unless you log in.
-There's no hosted server in between, no API key, and nothing about you is sent anywhere else
-(only the delivery point you ask about goes to Okala). Requests go out through a Chrome-impersonating client, at most
-2 at a time with a little jitter; a failed GET is retried up to twice.
 
 ## Good to know
 
